@@ -65,28 +65,69 @@ modded):
 3. `GnbFmCreateIvrsEntry` → `GnbBuildIvmdList` — builds IVHD/IVMD structures
    describing PCI device scope
 4. `InstallIvrsAcpiTable` — publishes the IVRS (208 bytes, v02) into ACPI
-5. `AmdNbioAlibARIDxeEntry` — generates the `\_SB.ALIB` method (previously
-   missing from all ACPI tables; broken cross-reference in SSDT2 is now resolved)
+5. `AmdNbioAlibARIDxeEntry` — the ALIB DXE driver fires during IOMMU init
+   (confirmed by binary analysis of Robin5.00). ALIB generation is triggered
+   by IOMMU enablement, but see the caveat below.
 
 ### ACPI tables before vs after
 
 | Table | Stock P3.00 (IOMMU off) | IOMMU enabled |
 |---|---|---|
+| DSDT | unchanged | unchanged (identical MD5) |
+| SSDT1 "AMD CPU" | C-states for C000–C00B | unchanged |
+| SSDT2 "AmdTable" | PCIe ALIB library | unchanged |
+| SSDT3 "BC250CST" | absent | **present** (C-states for P000–P00B) |
 | IVRS | absent | **present** (208 B, v02) |
-| SSDT count | 2 | 3 (SSDT3 = BIOS ALIB/IOMMU) |
 | IOMMU PCI device | absent | **00:00.2** `1022:13e1` |
 
-### Previously broken ACPI reference
+### SSDT3 "BC250CST" — what it actually is
 
-SSDT2 ("AmdTable", the PCIe ALIB library) contained:
-```
-External (_SB_.ALIB, MethodObj)  // Warning: Unknown method
-```
-With IOMMU disabled, `\_SB.ALIB` was never defined anywhere. SSDT3 (generated
-when IOMMU is enabled) supplies this definition. The broken cross-reference
-that would have caused AMD-Vi ALIB calls to fail is now resolved.
+SSDT3 (OEM Table ID `BC250CST`, compiled `INTL 20260408`) is a **C-state
+table** for the `\_PR.P000`–`\_PR.P00B` processor namespace. It mirrors what
+SSDT1 does for `\_PR.C000`–`\_PR.C00B`. With IOMMU enabled, AGESA now
+provides C-state coverage for both processor namespaces.
+
+This is significant for our SSDT-PST: the P000–P00B namespace (which our
+injected `_PSS/_PCT/_PSD` targets) now has BIOS-supplied C-states alongside
+the user-supplied P-states. Both coexist cleanly.
+
+### ALIB status — still undefined
+
+`\_SB.ALIB` remains undefined in all ACPI tables even with IOMMU enabled.
+SSDT2 still contains `External (_SB_.ALIB, MethodObj)` as an unresolved
+reference. The `AmdNbioAlibARIDxeEntry` driver fires (confirmed in binary)
+but does not appear to install an AML `\_SB.ALIB` method on this platform.
+
+In practice this does not affect AMD-Vi operation — the kernel's IOMMU driver
+initialises correctly without ALIB. ALIB is used by the PCIe hot-plug stack
+(SSDT2 function 0x06 calls), not by AMD-Vi directly.
 
 ---
+
+### IVRS decoded
+
+```
+IVRS v02, 208 bytes — OEM "AMD   " / "AMD IVRS"
+  IVInfo: 0x00203041
+
+IVHD type 0x10 (legacy) + type 0x11 (with EFR):
+  IOMMU DeviceId:     0x0002  (00:00.2)
+  MMIO Base Address:  0xFEB80000
+  Capability Offset:  0x0040
+  Flags:              Coherent=1
+  EFR Image (type 11): 0x0421600720094250
+
+Device scope:
+  Range  0x0008–0xFFFE : all PCI devices (bus 0 dev 1 fn 0 → bus 255)
+  Alias  0x0200–0x02FF : sourced from 0x00A4
+  Special 0x00, src 0x00A0, variety 0x02 : HPET
+  Special 0x0D, src 0x00A0, variety 0x01 : IOAPIC (full interrupt passthrough)
+  Special 0x0E, src 0x0001, variety 0x01 : IOAPIC
+```
+
+The IVHD device range covers the entire PCI bus. Both IVHD type 0x10
+(required for older kernels) and type 0x11 (preferred, includes EFR) are
+present, making this IVRS compatible across kernel versions.
 
 ## Kernel configuration used
 
