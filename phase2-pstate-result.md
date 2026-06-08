@@ -104,16 +104,35 @@ both is the correct configuration.
 
 ---
 
-## Bazzite / ostree deployment note
+## Bazzite / ostree deployment note — UPDATED
 
-The BLS entry patch is **not persistent across ostree upgrades**. When
-`rpm-ostree upgrade` or any operation creates a new deployment, the BLS entry
-will be regenerated pointing to the new ostree initrd.
+The `pstate-apply.sh` BLS patch approach is **obsolete**. The correct
+persistence mechanism was already in place on this system:
 
-**To make this permanent on Bazzite**, the right approach is a dracut `04acpi`
-module (not shipped in the Bazzite kernel's dracut) or an rpm-ostree-layered
-package that installs such a module. The `pstate-apply.sh` script in this repo
-can be re-run after each ostree upgrade to re-patch the new deployment.
+```
+/etc/dracut.conf.d/bc250-acpi.conf
+    acpi_override="yes"
+    acpi_table_dir="/etc/acpi_tables"
+
+/etc/acpi_tables/SSDT-CST.aml   (C-states for \_PR.P000–P00B)
+/etc/acpi_tables/SSDT-PST.aml   (P-states, HACK/PSTATES)
+```
+
+These files were manually placed before this investigation began but
+`rpm-ostree initramfs --enable` had not been run, so the initrd had not
+been rebuilt. Once that rebuild was triggered, dracut's `acpi_override`
+mechanism embedded both AML files into the early uncompressed CPIO of
+every subsequent ostree initrd — including all future upgrades.
+
+**The correct setup for a fresh BC-250 Bazzite install:**
+1. Place AML files in `/etc/acpi_tables/`
+2. Create `/etc/dracut.conf.d/bc250-acpi.conf` with `acpi_override="yes"` and
+   `acpi_table_dir="/etc/acpi_tables"`
+3. Run `sudo rpm-ostree initramfs --enable` once
+4. Reboot — done. Survives all future `rpm-ostree upgrade` operations.
+
+Artifacts `/boot/initramfs-pstate.img` and `/boot/acpi_override.cpio` are
+no longer needed and can be removed with sudo.
 
 ---
 
