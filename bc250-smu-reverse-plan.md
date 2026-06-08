@@ -87,6 +87,9 @@ it sets up at init that unlocks CPU boosting is not fully documented.
 - Always monitor temperature during any SMU experiment; stop at 95 °C
 - Keep CH341A programmer + SOIC8 clip on hand for BIOS recovery
 - Never run new SMU commands without first reading back current state
+- **Never blindly enumerate Q2:0x11+ or Q4** — confirmed to cause permanent
+  firmware hang requiring reboot (observed 2026-06-08). Ghidra analysis of
+  the handler code is required before probing those ranges.
 
 **Safe exploration protocol:**
 1. Save current SMU state (metrics table snapshot, current VIDs/freqs)
@@ -95,8 +98,11 @@ it sets up at init that unlocks CPU boosting is not fully documented.
 4. If status = `0xFF` (failed): command exists but rejected; note and retry
    with different arguments
 5. If status = `0xFD` (prereq rejected): command needs something else first
-6. After any command that changes state: verify metrics table looks sane
-7. Never chain unknown commands without verifying each step
+6. If status = `0x00` (timeout): firmware never responded — DO NOT retry
+   blindly; the firmware core may be stuck. Verify Q3 test message responds
+   before continuing. If Q3 hangs, reboot required.
+7. After any command that changes state: verify metrics table looks sane
+8. Never chain unknown commands without verifying each step
 
 **Q0 caveat**: Q0 is "disabled by default" in the library. It must be
 explicitly enabled and treated with extra caution.
@@ -124,32 +130,47 @@ DELIVERABLE: `smu-baseline.py` — idempotent state snapshot tool.
 
 ## Phase 1 — Systematic enumeration of Q1, Q2 unknowns, Q4
 
-Safe to explore because these queues have fewer known dangerous commands.
+**STATUS: Partially complete (2026-06-08). Results in `smu/smu-enumerate-2026-06-08.txt`.**
 
-**Method**:
-```python
-for queue in [1, 2, 4]:
-    for cmd in range(0x00, 0x40):
-        status = smu.send_message(queue, cmd)
-        if status != 0xFE:  # not "unknown command"
-            print(f"Q{queue} 0x{cmd:02X}: status={status:#04x}, "
-                  f"arg={smu.read_arg():#010x}")
-```
+### Confirmed safe range (Q1 and Q2:0x01–0x10)
 
-Run this with no argument (test if the command responds), then for live commands
-try argument values 0x00, 0x01, 0xFF, 0x80000000 to probe shapes.
+| Cmd | Status | Response | Notes |
+|---|---|---|---|
+| Q1:0x01 | OK | value+1 | Test/ping message — same as Q3:0x01 |
+| Q1:0x02 | OK | 0x00580600 | Firmware version (v0x58.06.00), same on Q2 |
+| Q1:0x08 | FAILED | 0 | Command exists, hard-rejected; gated |
+| Q1:0x10 | OK | arg echo | Scratchpad / address setter |
+| Q2:0x01 | OK | value+1 | Test/ping |
+| Q2:0x02 | OK | 0x00580600 | Firmware version |
+| Q2:0x03 | OK | 0x17 (23) | Known constant |
+| Q2:0x04 | OK | "AMD BC-250" | Device name (indexed) |
+| Q2:0x07–0x0A | OK | arg echo | Arg echo; 0x0A returns 3/2 (count?) |
+| Q2:0x0B | OK | 0x9C8D0000 | Indexed: idx=0 has data, idx=1 returns 0 |
+| Q2:0x0C | FAILED | 0 | Exists, hard-rejected |
+| Q2:0x0D–0x10 | OK | arg echo | Likely address setters (matches 0x0D/0x0E names) |
 
-**Specific Q2 targets:**
-- 0x2C/0x2D ("probably power limit settings") — try reading with no arg;
-  compare return value against known TDP ranges (5–100 W)
-- 0x07–0x10 — systematic enum, compare responses against metrics table values
-  to see if any are read-backs
+### DANGER ZONE — do not probe without Ghidra analysis first
 
-**Q4 targets:**
-- 0x0A labelled "freq_op1" — try passing known GFX/CPU frequencies and observe
-  if GPU or CPU clock changes in the metrics table
+**Q2:0x11–0x3F and all of Q4**: sending these commands caused permanent SMU
+firmware hang requiring reboot (2026-06-08). They are NOT simple "unknown"
+commands returning 0xFE — the firmware starts executing them and never
+completes within any reasonable timeout. The single-threaded SMU firmware core
+blocks all other queues (including Q3) until reboot.
 
-DELIVERABLE: `smu-enumerate.py` with annotated results for each queue.
+Root cause hypothesis: these are DRAM training, memory controller
+reconfiguration, or boot-sequencing operations that were never designed to be
+called at runtime.
+
+**Next step for this range: Phase 2 (Ghidra) must come first.**
+
+### Q2:0x0B data: 0x9C8D0000
+
+Index 0 returns 0x9C8D0000; index 1 returns 0; index ≥ 0xFF → FAILED.
+Best guess: packed dual-clock value (upper 16 bits = 0x9C8D = 40077). Unknown
+domain. Candidates: LPDDR5 PHY frequency, DF/fabric frequency in some encoding.
+Cross-reference against Ghidra firmware analysis.
+
+DELIVERABLE: `smu-enumerate.py` (done); annotated results pending Ghidra.
 
 ---
 

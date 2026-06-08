@@ -1,0 +1,84 @@
+=== BC-250 SMU Baseline Snapshot ===
+Time: 2026-06-08 21:25:31
+Host: bazzite  kernel: 6.19.14-ogc5.1.fc44.x86_64
+
+--- Connectivity ---
+Q3:0x01 test message: OK  (123 -> 124)
+
+--- Q2 Device Identity ---
+Device name  (Q2:0x04): 'AMD BC-250'
+Constant     (Q2:0x03): 23  (expected 23 / 0x17)
+
+--- Q0 — GFX State ---
+GFX clock    (0x37):   500 MHz
+GFX VID      (0x38):   700 mV
+Active WGP   (0x1E):   12
+Features     (0x3D):   0xDD602C7D
+
+Core P-states (Q0:0x0C):
+  Core 0: 6
+  Core 1: 6
+  Core 2: 6
+  Core 3: 0
+  Core 4: 6
+  Core 5: 0
+  Core 6: 6
+  Core 7: 0
+
+--- Q3 — CPU/GPU Voltages ---
+CPU VID      (0x36):   1093 mV
+GPU VID      (0x37):   699 mV
+CPU dyn VID offset (0x30,0): 0xFF000000
+GPU dyn VID offset (0x30,1): 0xFF000000
+
+--- Q3 — P-state Clocks (0x3B, pstate 0-7) ---
+  P0: 3200 MHz
+  P1: 2550 MHz
+  P2: 2325 MHz
+  P3: 1960 MHz
+  P4: 1820 MHz
+  P5: 1600 MHz
+  P6: 1271 MHz
+  P7: 800 MHz
+
+--- Q3 — Core Frequencies (0x43, core 0-7) ---
+  Core 0: 1400 MHz
+  Core 1: 1400 MHz
+  Core 2: 1400 MHz
+  Core 3: 933 MHz
+  Core 4: 1555 MHz
+  Core 5: 3500 MHz
+  Core 6: 1555 MHz
+  Core 7: 1555 MHz
+
+--- Q3 — SoC DPM Values (0x42, index 0-19) ---
+  DPM[ 0]: 0x000004E6  (1254)
+  DPM[ 1]: 0x000001F4  (500)
+  DPM[ 2]: 0x000002FA  (762)
+  DPM[ 3]: 0x000002FA  (762)
+  DPM[ 8]: 0x000001F4  (500)
+  DPM[ 9]: 0x000002E2  (738)
+  DPM[10]: 0x000003E8  (1000)
+  DPM[11]: 0xFFFFFFFF  (4294967295)
+  DPM[12]: 0xFFFFFFFF  (4294967295)
+  DPM[13]: 0x00000258  (600)
+  DPM[14]: 0x00000457  (1111)
+  DPM[17]: 0x0000014A  (330)
+  DPM[18]: 0x00000294  (660)
+  DPM[19]: 0x00000190  (400)
+
+--- Q3 — Misc ---
+CPU temp max      (0x40): 100 °C
+Perf sample       (0x7F): 0 µs
+Sample interval   (0x8D): 0
+Max sample interv (0x80): 0
+
+--- System Temperatures (hwmon) ---
+  Composite: 31 °C
+  edge: 58 °C
+  AMD TSI Addr 98h: 59 °C
+  Thermistor 14: 43 °C
+  Thermistor 15: 43 °C
+  Tctl: 59 °C
+
+=== Baseline capture complete ===
