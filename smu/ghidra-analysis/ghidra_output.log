@@ -1,0 +1,95 @@
+openjdk version "21.0.11" 2026-04-21
+OpenJDK Runtime Environment (build 21.0.11+10-1-26.04.2-Ubuntu)
+OpenJDK 64-Bit Server VM (build 21.0.11+10-1-26.04.2-Ubuntu, mixed mode)
+Module manifest file error on line 2 of file: /home/lorek/.config/ghidra/ghidra_11.2.1_PUBLIC/Extensions/GhidraMCP/Module.manifest
+	-> Invalid line encountered: GHIDRA_MODULE_NAME=GhidraMCP
+Module manifest file error on line 3 of file: /home/lorek/.config/ghidra/ghidra_11.2.1_PUBLIC/Extensions/GhidraMCP/Module.manifest
+	-> Invalid line encountered: GHIDRA_MODULE_DESC=An HTTP server plugin for Ghidra
+Module manifest file error on line 2 of file: /home/lorek/.config/ghidra/ghidra_11.2.1_PUBLIC/Extensions/GhidraMCP/Module.manifest
+	-> Invalid line encountered: GHIDRA_MODULE_NAME=GhidraMCP
+Module manifest file error on line 3 of file: /home/lorek/.config/ghidra/ghidra_11.2.1_PUBLIC/Extensions/GhidraMCP/Module.manifest
+	-> Invalid line encountered: GHIDRA_MODULE_DESC=An HTTP server plugin for Ghidra
+INFO  Using log config file: jar:file:/home/lorek/ghidra/Ghidra/Framework/Generic/lib/Generic.jar!/generic.log4j.xml (LoggingInitialization)  
+INFO  Using log file: /home/lorek/ssdt-pst/smu/ghidra-analysis/ghidra_analysis.log (LoggingInitialization)  
+INFO  Loading user preferences: /home/lorek/.config/ghidra/ghidra_11.2.1_PUBLIC/preferences (Preferences)  
+INFO  Searching for classes... (ClassSearcher)  
+INFO  Class search complete (1937 ms) (ClassSearcher)  
+INFO  Initializing SSL Context (SSLContextInitializer)  
+INFO  Initializing Random Number Generator... (SecureRandomFactory)  
+INFO  Random Number Generator initialization complete: NativePRNGNonBlocking (SecureRandomFactory)  
+INFO  Trust manager disabled, cacerts have not been set (ApplicationTrustManagerFactory)  
+INFO  Headless startup complete (5511 ms) (AnalyzeHeadless)  
+INFO  Class searcher loaded 57 extension points (18 false positives) (ClassSearcher)  
+INFO  HEADLESS Script Paths:
+    /home/lorek/ghidra/Ghidra/Features/BytePatterns/ghidra_scripts
+    /home/lorek/ghidra/Ghidra/Features/GnuDemangler/ghidra_scripts
+    /home/lorek/ghidra/Ghidra/Debug/Debugger-agent-frida/ghidra_scripts
+    /home/lorek/ghidra/Ghidra/Debug/Debugger-agent-dbgmodel-traceloader/ghidra_scripts
+    /home/lorek/ghidra/Ghidra/Features/MicrosoftCodeAnalyzer/ghidra_scripts
+    /home/lorek/ghidra/Ghidra/Processors/PIC/ghidra_scripts
+    /home/lorek/ghidra/Ghidra/Processors/JVM/ghidra_scripts
+    /home/lorek/ghidra_scripts
+    /home/lorek/ghidra/Ghidra/Debug/Debugger/ghidra_scripts
+    /home/lorek/ghidra/Ghidra/Features/SystemEmulation/ghidra_scripts
+    /home/lorek/ssdt-pst/.agents/skills/ghidra/scripts/ghidra_scripts
+    /home/lorek/ghidra/Ghidra/Features/VersionTracking/ghidra_scripts
+    /home/lorek/ghidra/Ghidra/Features/Base/ghidra_scripts
+    /home/lorek/ghidra/Ghidra/Processors/Atmel/ghidra_scripts
+    /home/lorek/ghidra/Ghidra/Features/FileFormats/ghidra_scripts
+    /home/lorek/ghidra/Ghidra/Features/FunctionID/ghidra_scripts
+    /home/lorek/ghidra/Ghidra/Features/SwiftDemangler/ghidra_scripts
+    /home/lorek/ghidra/Ghidra/Features/Decompiler/ghidra_scripts
+    /home/lorek/ghidra/Ghidra/Features/Jython/ghidra_scripts
+    /home/lorek/ghidra/Ghidra/Features/WildcardAssembler/ghidra_scripts
+    /home/lorek/ghidra/Ghidra/Processors/DATA/ghidra_scripts
+    /home/lorek/ghidra/Ghidra/Debug/Debugger-rmi-trace/ghidra_scripts
+    /home/lorek/ghidra/Ghidra/Features/BSim/ghidra_scripts
+    /home/lorek/ghidra/Ghidra/Processors/8051/ghidra_scripts
+    /home/lorek/ghidra/Ghidra/Features/PDB/ghidra_scripts (HeadlessAnalyzer)  
+INFO  HEADLESS: execution starts (HeadlessAnalyzer)  
+INFO  Creating temporary project: /tmp/ghidra_smu_mp1_fw_bin_1892894 (HeadlessAnalyzer)  
+INFO  Creating project: /tmp/ghidra_smu_mp1_fw_bin_1892894 (DefaultProject)  
+INFO  REPORT: Processing input files:  (HeadlessAnalyzer)  
+INFO       project: /tmp/ghidra_smu_mp1_fw_bin_1892894 (HeadlessAnalyzer)  
+INFO  IMPORTING: file:///home/lorek/ssdt-pst/smu/smu_mp1_fw.bin (HeadlessAnalyzer)  
+INFO  Using Loader: Raw Binary (AutoImporter)  
+INFO  Using Language/Compiler: ARM:LE:32:Cortex:default (AutoImporter)  
+INFO  Using Library Search Path: [., /bin, /lib, /lib64, /lib/x86_64-linux-gnu, /lib/aarch64-linux-gnu, /usr/bin, /usr/lib, /usr/X11R6/bin, /usr/X11R6/lib, /usr/java/packages/lib, /usr/lib/x86_64-linux-gnu/jni, /usr/lib/x86_64-linux-gnu, /usr/lib/jni] (AutoImporter)  
+INFO  IMPORTING: Loaded 0 additional files (HeadlessAnalyzer)  
+INFO  ANALYZING all memory and code: file:///home/lorek/ssdt-pst/smu/smu_mp1_fw.bin (HeadlessAnalyzer)  
+INFO  Packed database cache: /var/tmp/lorek-ghidra/packed-db-cache (PackedDatabaseCache)  
+INFO  Applied data type archive: generic_clib (ApplyDataArchiveAnalyzer)  
+INFO  -----------------------------------------------------
+    ARM Constant Reference Analyzer            0.165 secs
+    ARM Symbol                                 0.002 secs
+    ASCII Strings                              0.509 secs
+    Apply Data Archives                        1.192 secs
+    Create Address Tables                      0.135 secs
+    Create Address Tables - One Time           1.165 secs
+    Create Function                            0.000 secs
+    Data Reference                             0.414 secs
+    Decompiler Switch Analysis                 0.770 secs
+    Demangler GNU                              0.031 secs
+    Disassemble Entry Points                   0.135 secs
+    Embedded Media                             0.044 secs
+    External Entry References                  0.001 secs
+    Function Start Pre Search                  0.028 secs
+    Function Start Search                      0.228 secs
+    Function Start Search After Code           0.022 secs
+    Function Start Search After Data           0.011 secs
+    Non-Returning Functions - Discovered       0.007 secs
+    Reference                                  0.411 secs
+    Shared Return Calls                        0.004 secs
+    Subroutine References                      0.079 secs
+-----------------------------------------------------
+     Total Time   5 secs
+-----------------------------------------------------
+ (AutoAnalysisManager)  
+INFO  REPORT: Analysis succeeded for file: file:///home/lorek/ssdt-pst/smu/smu_mp1_fw.bin (HeadlessAnalyzer)  
+INFO  SCRIPT: /home/lorek/ssdt-pst/.agents/skills/ghidra/scripts/ghidra_scripts/ExportFunctions.java (HeadlessAnalyzer)  
+INFO  ExportFunctions.java> Exporting functions to: /home/lorek/ssdt-pst/smu/ghidra-analysis/smu_mp1_fw.bin_functions.json (GhidraScript)  
+INFO  ExportFunctions.java> Exported 0 functions (GhidraScript)  
+INFO  ANALYZING changes made by post scripts: file:///home/lorek/ssdt-pst/smu/smu_mp1_fw.bin (HeadlessAnalyzer)  
+INFO  REPORT: Post-analysis succeeded for file: file:///home/lorek/ssdt-pst/smu/smu_mp1_fw.bin (HeadlessAnalyzer)  
+INFO  REPORT: Save succeeded for: /smu_mp1_fw.bin (ghidra_smu_mp1_fw_bin_1892894:/smu_mp1_fw.bin) (HeadlessAnalyzer)  
+INFO  REPORT: Import succeeded (HeadlessAnalyzer)  

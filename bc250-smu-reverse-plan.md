@@ -176,32 +176,60 @@ DELIVERABLE: `smu-enumerate.py` (done); annotated results pending Ghidra.
 
 ## Phase 2 — SMU firmware extraction and Ghidra analysis
 
-The bc250-collective found the mailbox descriptor table at offset `+0x00B00000`
-in the SMU firmware image via Ghidra. The firmware is embedded in the BIOS ROM.
+**STATUS: BLOCKED — firmware code section is AES-encrypted (2026-06-08).**
 
-2.1 **Extract the SMU firmware from Robin5.00** (already in the repo):
-```bash
-binwalk -e Robin5.00  # already done
-# Find the MP1 firmware blob — typically an ARM Cortex-M3/M4 image
-# marked by PSP firmware header or AMD firmware entry
-```
+### What we found
 
-2.2 **Load in Ghidra** with ARM Cortex-M architecture. The base address is
-known from the `+0x00B00000` descriptor table offset. Look for:
-- The mailbox dispatch table: indexed by command ID, each entry is a function
-  pointer
-- The secure access gate: what flag the 0x27/0x2A–0x2F group checks
+The SMU firmware blob (PSP type 0x08, 256KB, at Robin5.00 ROM offset 0x8FEE00)
+has two distinct sections:
+
+| Offset | Size | Entropy | Content |
+|---|---|---|---|
+| 0x00000–0x1FFFF | 128 KB | 0.2–4.5 b/b | **Cleartext**: PSP cert header, firmware version (v88.7.1), command-dispatch metadata, configuration tables, C++ debug strings |
+| 0x20000–0x3BFFF | 112 KB | 7.2–7.3 b/b | **AES-encrypted**: actual ARM code section; PSP-fused key, no public decryption path |
+| 0x3C000–0x40200 | ~16 KB | 0.0 b/b | Zero padding |
+
+Key evidence for encryption: 0 BX LR (0x4770) instructions at aligned addresses
+across the entire blob; no compression magic bytes; no valid ARM CM vector table;
+entropy matches AES ciphertext. Decompression attempts (zlib, LZMA) failed.
+
+### What we can read from the cleartext section
+
+The `ioIf::setUpDiscTable_malloc` C++ symbol is at blob offset 0x15944. The
+surrounding area (0x15800–0x15970) is the static initialization table for the
+ioIf (IO Interface = mailbox) object. This is configuration DATA — function
+pointers and parameter blocks pre-allocated in SRAM at runtime.
+
+This data tells us the ioIf object EXISTS and has 5 queues, but does not
+directly reveal the handler addresses (those are encrypted).
+
+### Why the bc250-collective could use Ghidra
+
+The collective's Ghidra work on this firmware used a **different BIOS version**.
+Older AMD BIOS versions for related chips (Renoir, Cezanne, and possibly early
+BC-250 BIOS P1.x/P2.x) ship with unencrypted SMU firmware. The Robin5.00
+modded BIOS has encryption enabled for the SMU code section.
+
+**Actionable alternatives:**
+
+2.A **Find an unencrypted SMU firmware**: Obtain an early BC-250 BIOS (P1.00 or
+P2.00) or a Renoir/Cezanne BIOS and check if the type 0x08 blob has lower
+entropy (< 6 b/b). A Renoir SMU firmware would have the same ARM architecture
+and similar mailbox protocol.
+
+2.B **Cleartext analysis**: The 128 KB cleartext section contains command
+metadata. A systematic read of the dispatch table area (0x15800–0x16000) may
+reveal command ID → handler mapping offsets, even without the code.
+
+2.C **PSP public-key path (advanced)**: AMD PSP vulnerability research has
+occasionally enabled firmware decryption. Monitor AMD PSP research; not
+actionable today.
+
+Original Phase 2 goals that are still reachable via 2.A:
+- Mailbox dispatch table: indexed by command ID, each entry is a function pointer
+- Secure access gate: what flag Q3 0x27/0x2A–0x2F checks
 - FCLK/MEMCLK command handlers: search for DRAM clock register writes
-- The boot-init sequence: what state changes on first valid message
-
-2.3 **Cross-reference** with `smu_v11_8_ppsmc.h` and `smu_v11_8_pmfw.h`
-from the Linux kernel — these define the standard message IDs; any handler
-that doesn't match a standard message is a custom/PS5-era command.
-
-2.4 **Trace the secure access flag**: find where the Q3 0x27/0x2A–0x2F group
-checks its gate condition. If it's a BIOS-set flag in a memory-mapped
-register, it may be settable at runtime. If it's a PSP-signed blob, it's
-PSP-locked and not reachable from Linux.
+- Cross-reference with `smu_v11_8_ppsmc.h` / `smu_v11_8_pmfw.h`
 
 DELIVERABLE: Ghidra project + annotated function list for the SMU firmware.
 
