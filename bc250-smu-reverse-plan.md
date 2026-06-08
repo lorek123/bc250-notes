@@ -245,9 +245,21 @@ testing or unencrypted SMU firmware analysis.
 
 Extracted blobs saved to `smu/abl/` (cleaned up names).
 
-2.A **Find an unencrypted SMU firmware**: BC-250 v2.00 also encrypted. A
-Renoir/Cezanne BIOS may have unencrypted SMU firmware for analyzing the Q0–Q4
-user mailbox dispatch table and secure access gate logic.
+2.A **Unencrypted SMU firmware — EXHAUSTED (2026-06-08)**:
+- BC-250 v2.00 (earliest available): encrypted (7.0-7.3 b/b)
+- Van Gogh (Steam Deck, AMD official `firmware_binaries` repo): encrypted
+- Renoir v2000a, Cezanne, Mendocino, Picasso: all encrypted or .csbin (8.0 b/b)
+- No separate `*_smc.bin` in linux-firmware for Cyan Skillfish or Renoir
+- Quarkslab Steam Deck PSP research = UEFI/SMM, not SMU firmware decryption
+AMD encrypts SMU firmware as a consistent policy across all Zen-era chips.
+
+**Architecture note**: AMD SMU "since Zen" uses **Xtensa cores** (not ARM Cortex-M).
+This confirms why ARM Ghidra analysis found 0 functions. If decrypted firmware is
+ever obtained, use the `ghidra-xtensa` community plugin (Xtensa ISA support).
+Ghidra does not include Xtensa by default.
+
+Remaining paths: PSP exploit (academic/advanced), collaborating with bc250-collective
+on whether their "Ghidra analysis" used ABL-level data or actual decrypted SMU.
 
 2.B **Cleartext analysis**: The 128 KB cleartext section contains command
 metadata. A systematic read of the dispatch table area (0x15800–0x16000) may
