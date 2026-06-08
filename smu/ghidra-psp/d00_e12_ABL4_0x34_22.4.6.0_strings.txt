@@ -1,0 +1,572 @@
+000003c8: !!! Unrecognize ABL Version string !!!
+000006e0: 
+Create APOB
+
+000006f0: 	AGESA MEM - APOB Support (Single Die)
+
+0000071c: 	Add General Configuraton information
+
+00000748: 	Add CCX Map
+
+00000758: 	HeapLocateBuffer success
+
+00000774: 	Add System Memory Map log
+
+00000790: 	Add packed SMBIOS info
+
+000007ac: 	Add Apob Header
+
+000007c4: 	Master: Pass APOB to PSP BL for <= 1 die
+
+00000a50: 	Synchronize debug data from slaves at debug sync point %04x
+
+00000a90: 	MCM Info
+
+00000a9c: 		SocketCount : %d
+
+00000ab0: 		Socket ID : %d
+
+00000ac4: 		Dies per Socket : %d
+
+00000adc: 		Die Count : %d
+
+00000af0: 		Die ID : %d
+
+00000b08: FALSE
+00000b10: 		Local Master: %s
+
+00000b24: 		System Master: %s
+
+00000b3c: 
+Debug Sync
+
+00000b50: 
+Master: Debug Sync - Get Data from slaves
+
+00000b7c: 	Error Slave comm
+
+00000b98: 		Slave %d, TP: %02x 
+
+00000bb0: 
+Slave: Debug Sync
+
+00000bc4: 
+Slave: Debug Sync - Send data to Master
+
+00000bf0: 		Debug Sync Disabled - Die count < = 1
+
+00000cc8: 	Flush Error Reporting Log
+
+00000dcc: 
+Report New Log Entry
+
+00000f34: 	Err Port Disabled
+
+00000f48: 	Send ABL Error Log
+
+00000f64: 	Error Log transmission start
+
+00000f8c: 	Error Log transmission End
+
+00001004: 	Error Reporting waiting for ACK
+
+00001204: 
+AGESA MEM - Memory Multi-die test ready.
+
+00001230: 
+Synchronize Memroy test results across all Dies.
+
+00001264: 	MCM Info
+
+00001270: 		SocketCount : %d
+
+00001284: 		Socket ID : %d
+
+00001298: 		Dies per Socket : %d
+
+000012b0: 		Die Count : %d
+
+000012c4: 		Die ID : %d
+
+000012dc: FALSE
+000012e4: 		Local Master: %s
+
+000012f8: 		System Master: %s
+
+00001310: 
+Memory Test Results sync Start 
+
+00001338: 	Master Memory:
+
+0000134c: 
+Master: Memory Test Reults Sync
+
+00001370: 
+Master: Mem Test - Get Result from slave
+
+0000139c: 	Slave %d
+
+000013a8: 		Slave ID : %d
+
+000013bc: 		Data Size : %d
+
+000013d0: 		Slave Socket ID : %d
+
+000013e8: 		Slave Die ID : %d
+
+00001400: UNKNOWN
+00001408: 		Die %d mem test : %s
+
+00001430: 
+Slave: Report memory test results
+
+00001454: 
+Slave: Mem Test - Send Mem test data to Master
+
+0000148c: 		Mem Test Sync Disabled - Die count < = 1
+
+000014b8: 
+Mem Test Sync Disabled - Die count < = 1
+
+00001724: 
+AGESA MEM - Multi-Die - APOB Support
+
+0000174c: 
+Unified APOB Start 
+
+00001764: 
+Running on System Master. Retreiving APOB Address from Slaves
+
+000017a4: 	Master Memory:
+
+000017b8: 
+Master: APOB init
+
+000017cc: 
+Master: APOB - Get Data from Master
+
+000017f4: 		Master: Mem Config buffer Offset: %08x 
+
+00001820: 		Master: CCX Map Offset: %08x 
+
+00001844: 		Master: Mem SMBIOS Offset: %08x 
+
+00001868: 		Master: System Map Offset: %08x 
+
+0000188c: 	Slave %d
+
+00001898: 		Mem Config buffer Offset: %08x 
+
+000018bc: 		CCX Map Offset: %08x 
+
+000018d8: 	AGESA Unified APOB Size : %04x
+
+000018fc: 	Master: Pass unified APOB to PSP BL
+
+00001924: 
+Slave: APOB init
+
+00001938: 
+Slave: APOB - Send Data to Master
+
+00001960: 
+Slave: APOB Data Set 2- Send Data to Master
+
+00001990: 		APOB Sync Disabled - Die count < = 1
+
+000019f0: 	Error Reporting waiting for ACK
+
+00001b60: REG28_%x
+
+00001b6c: REG40_%x
+
+00001c14: 
+[ERROR]: Master: ABL, Error, this is not the master
+
+00001c50: 
+[ERROR]: Master: ABL, Error, no sync function found
+
+00001cd0: 
+Master: Get Data from Slaves
+
+00001dd4: 		Allocate Heap Fail for Memory Test.
+
+00001dfc: 
+AGESA MEM - Memory test ready
+
+00001e1c: 
+ABL Mem Test - Enabled
+
+00001e38: 		Die ID : %d
+
+00001e48: Agesa Mem Test Start Addr Hi: 0x%08x Addr Lo: : 0x%08x
+
+00001e80: Agesa Mem Test at Addr Hi: 0x%08x Addr Lo: : 0x%08x Failed
+
+00001f6c: 
+[ERROR]: Slave: ABL, Error, No sync function found
+
+00002008: 
+[ERROR]: Slave: ABL, Error, invalid slave n send data
+
+00002040: 
+Slave: ABL, Send Data to Master
+
+0000209c: 
+Slave: ABL, Init Slave states
+
+00002190: 
+	Encryption Flags, AddrTweakEn passed to PSP BL: %x, %x
+
+000021cc: 
+	 Svc_ProgramUmcKeys status %x
+
+00002720: 
+Synchronize All Slave Dies with the Master.
+
+00002750: 	MCM Info
+
+0000275c: 		SocketCount : %d
+
+00002770: 		Socket ID : %d
+
+00002784: 		Dies per Socket : %d
+
+0000279c: 		Die Count : %d
+
+000027b0: 		Die ID : %d
+
+000027c8: FALSE
+000027d0: 		Local Master: %s
+
+000027e4: 		System Master: %s
+
+000027fc: 
+System Master waiting on callback from slaves.
+
+00002830: 	Slave %d
+
+0000283c: 		Slave ID : %d
+
+00002850: 		Slave Socket ID : %d
+
+00002868: 		Slave Die ID : %d
+
+00002880: 
+Fatal error, received from ABL Get data.
+
+000028ac: 
+All Slave Dies synchronized  with the Master.
+
+000028e0: 		Sync All Dies Disabled - Die count < = 1
+
+00002a84: 
+	Parent APCB parameter disabled: Token %04x, Timepoint %04x
+
+00002ac8: 
+	Get internal APCB parameter: Token %04x, Timepoint %04x
+
+00002f58: 
+	[MEM_CONF] Override Memory Clock Speed: %04dMHz
+
+00002f8c: 
+	Override Memory clock: 0x%x
+
+00002fb0: 	[MEM_CONF] Override Memory Timing tCL:    %02d
+
+00002fe4: 	[MEM_CONF] Override Memory Timing tRAS:   %02d
+
+00003018: 	[MEM_CONF] Override Memory Timing tRCDRD: %02d
+
+0000304c: 	[MEM_CONF] Override Memory Timing tRCDWR: %02d
+
+00003080: 	[MEM_CONF] Override Memory Timing tRCAb:  %02d
+
+000030b4: 	[MEM_CONF] Override Memory Timing tRCPb:  %02d
+
+000030e8: 	[MEM_CONF] Override Memory Timing tRPAb:  %02d
+
+0000311c: 	[MEM_CONF] Override Memory Timing tRPPb:  %02d
+
+00003150: 	[MEM_CONF] Override Memory Timing tRRDS:  %d
+
+00003180: 	[MEM_CONF] Override Memory Timing tRRDL:  %02d
+
+000031b4: 	[MEM_CONF] Override Memory Timing tRTP:   %02d
+
+000031e8: 	[MEM_CONF] Override Memory Timing tFAW:   %02d
+
+0000321c: 	[MEM_CONF] Override Memory Timing tREF:   %04d
+
+00003250: 	[MEM_CONF] Override Memory Timing RFCPb:  %04d
+
+00003284: 	[MEM_CONF] Override Memory Timing tRFC:   %04d
+
+000032b8: 
+	Override TCL: %d
+
+000032cc: 
+	Override Trcdrd: %d
+
+000032e4: 
+	Override Trcdwr: %d
+
+0000353c: 
+	Override Tras: %d
+
+00003554: 
+	Override TrpAb: %d
+
+0000356c: 
+	Override TrpPb: %d
+
+00003584: 
+	Override TrcAb: %d
+
+0000359c: 
+	Override TrcPb: %d
+
+000035b4: 
+	Override TrrdL: %d
+
+000035cc: 
+	Override TrrdS: %d
+
+000035e4: 
+	Override Trtp: %d
+
+000035fc: 
+	Override Tfaw: %d
+
+00004054: 
+	IOM Rogue Mode Enabled
+
+00004074: 
+	Override LvtOffsetVal: %d
+
+00004094: 
+	Override LvtOffset: %d
+
+000040b4: Begin DF TCB Trace VC8 token setting
+
+000040dc: It is Cardinal DF
+
+0000489c: It is Cardinal IOMS
+
+00004ec4: It is Cardinal CS
+
+000061ec: 
+	Override UclkDiv1 M0: %d
+
+00006208: 
+	Override UclkDiv1 M1: %d
+
+00006224: 
+	Override UclkDiv1 M2: %d
+
+00006240: 
+	Override UclkDiv1 M3: %d
+
+0000625c: 
+	Override TwtrL: %d
+
+00006274: 
+	Override TwtrS: %d
+
+0000628c: 
+	Override Tcksrx: 0x%x
+
+000062a8: 
+	Override Tcksre: 0x%x
+
+000062c4: 
+	Override Tpd: 0x%x
+
+000062dc: 
+	Override BFDisDynAdrTri: %d
+
+000062fc: 
+	Override CmdThrottleMode Control (OdtsCmdThrotEn): %d
+
+00006338: 
+	Override CmdThrottleMode (OdtsCmdThrotCyc): %d
+
+0000636c: 
+	Override Write CRC Enable (WrCrcEn): %d
+
+00006398: 
+	Override MEM Hardware Hisrory (EccHardwareHistoryEn): %d
+
+000063d4: 
+	Override Command Parity En (CmdParEn): %d
+
+00006404: 
+	Override RCD Parity (RDimmParEn): %d
+
+0000642c: 
+	Override DBI (WrDbiEn): %d
+
+00006cd4: 
+	Override APCB_TOKEN_CBS_DBG_MEM_DIAG_HYBRID_ALLBANK_CTL: %d
+
+0000730c: 
+	Override APCB_TOKEN_CBS_DBG_MEM_DIAG_REF_AB_INS_PERD: %d
+
+00007348: 
+	Override TwrwrSc: %d
+
+00007360: 
+	Override TwrwrSd: %d
+
+00007378: 
+	Override TwrwrDd: %d
+
+00007390: 
+	Override TrdrdSc: %d
+
+000073a8: 
+	Override TrdrdSd: %d
+
+000073c0: 
+	Override TrdrdDd: %d
+
+000073d8: 
+	Override Trdwr: %d
+
+000073f0: 
+	Override Twrrd: %d
+
+00007408: 
+	Override Power Down Enable: %d
+
+0000742c: 
+	Override Power Down Mode: %d
+
+00007668: 
+	Override Power Down Delay: %d
+
+0000768c: 
+	Override Aggressive Power Down Enable: %d
+
+000076bc: 
+	Override Aggressive Power Down Delay: %d
+
+000076e8: 
+	Additional CAS-CAS Delay Cycles: %d
+
+00007710: 
+	Additional Read to Write Turnaround Cycles: %d
+
+00007744: 
+	Override OnDimmTemperatureSensor(OdtsEn): %d
+
+000078c8: 
+APCB Config parameter %04x mapped to CBS token %04x
+
+00007900: 
+Get config parameter: token %04x, timepoint %04x
+
+00007934: 
+Get config parameter from default: token %04x, timepoint %04x
+
+00007d88: 
+		Initializing APCB parameters for Type[%d]...
+
+00007dbc: 
+		Type[%d], Token[0x%x] = 
+00007ea4: 
+		ToSearch: 	GroupId : 0x%04X,  TypeId : 0x%04X
+00007edc: 		Found type id match!
+
+000083dc: Zen MinSevAsid Config is %x
+
+00008400: BiosDramBaseAddr is %x
+
+00008418: BiosDramSize is %x
+
+0000842c: Zen CS_BASE is %x
+
+00008440: Zen TOM2 is %x0000
+
+0000845c: Zen TOM1 is %x
+
+0000846c: FrameBufferBase is %x
+
+00008484: FrameBufferTOP is %x
+
+000084b4: EX: Load core uCode patch table
+
+000085b8: 
+ k %x, CmacData %x
+
+00008644: Begin DF Apply Errata Workarounds init
+
+00008670: DF Apply Errata Workarounds complete
+
+000086c4: Begin DF CCM init
+
+000086dc: DF CCM init complete
+
+00008720: Begin DF CS init
+
+00008738: DF CS init complete
+
+0000877c: Begin DF security widget init
+
+000087a0: DF security widget init complete
+
+00008b2c: Begin DF IOMS init
+
+00008b44: DF IOMS init complete
+
+00008dc8: Begin DF FTI credit release and SDP connect
+
+00008dfc: DF FTI credit release and SDP connect complete
+
+00008e68: Begin DF SPF init
+
+00008e80: DF SPF init complete
+
+0000938c: 
+Write Pattern
+
+0000939c: 	 1KB Memory Test Start...  
+000093c0: [%08x]  
+000093cc: Test Failed
+
+000093dc: 		Pattern Written:        Pattern Read:
+
+00009408: 		%08x	
+00009410: 	%08x
+
+00009418: PASS
+
+00009424: Agesa Mem Test Complete
+
+00009440: 
+Agesa Mem Test Complete
+
+0000945c: Test Passed
+
+00009638: DieType: %d  SysConfig:0x%0x
+
+000096b8: GnbSmuPStateChangeCAR Entry
+
+000096d8: Send PSPSMC_MSG_SwitchToStartupDfPstate 0x%x
+
+00009754: GnbSmuSwitchToMemTrainingPstateCAR Entry
+
+00009780: Send PSPSMC_MSG_RequestMemoryTraining 0x%x
+
+00009af0: 
+[TP:%04x]
+
+00009b5c: ASSERT on File[%x] Line[%x]
+
+00009c00: 
+#BUFFER  OVERFLOW#
+
+00009fe8: PspBootRomServices:DiesPerSocket DieNum: %d
+
+0000a030: PspBootRomServices:EnabledCoreCountOnDie: %d
+

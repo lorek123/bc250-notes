@@ -1,0 +1,828 @@
+[
+  {
+    "name": "Reset",
+    "address": "00000000",
+    "signature": "undefined Reset()",
+    "external": false,
+    "calls": []
+  },
+  {
+    "name": "UndefinedInstruction",
+    "address": "00000004",
+    "signature": "undefined UndefinedInstruction()",
+    "external": false,
+    "calls": []
+  },
+  {
+    "name": "SupervisorCall",
+    "address": "00000008",
+    "signature": "undefined SupervisorCall()",
+    "external": false,
+    "calls": []
+  },
+  {
+    "name": "PrefetchAbort",
+    "address": "0000000c",
+    "signature": "undefined PrefetchAbort()",
+    "external": false,
+    "calls": []
+  },
+  {
+    "name": "NotUsed",
+    "address": "00000014",
+    "signature": "undefined NotUsed()",
+    "external": false,
+    "calls": []
+  },
+  {
+    "name": "IRQ",
+    "address": "00000018",
+    "signature": "undefined IRQ()",
+    "external": false,
+    "calls": []
+  },
+  {
+    "name": "FIQ",
+    "address": "0000001c",
+    "signature": "undefined FIQ()",
+    "external": false,
+    "calls": []
+  },
+  {
+    "name": "FUN_0000013c",
+    "address": "0000013c",
+    "signature": "undefined FUN_0000013c()",
+    "external": false,
+    "calls": []
+  },
+  {
+    "name": "FUN_000001a0",
+    "address": "000001a0",
+    "signature": "undefined FUN_000001a0()",
+    "external": false,
+    "calls": []
+  },
+  {
+    "name": "FUN_0000036c",
+    "address": "0000036c",
+    "signature": "undefined FUN_0000036c()",
+    "external": false,
+    "calls": []
+  },
+  {
+    "name": "FUN_000007dc",
+    "address": "000007dc",
+    "signature": "undefined FUN_000007dc()",
+    "external": false,
+    "calls": ["FUN_0000948c"]
+  },
+  {
+    "name": "FUN_000007f8",
+    "address": "000007f8",
+    "signature": "undefined FUN_000007f8()",
+    "external": false,
+    "calls": []
+  },
+  {
+    "name": "FUN_00000850",
+    "address": "00000850",
+    "signature": "undefined FUN_00000850()",
+    "external": false,
+    "calls": ["FUN_00001ce4"]
+  },
+  {
+    "name": "FUN_000008a8",
+    "address": "000008a8",
+    "signature": "undefined FUN_000008a8()",
+    "external": false,
+    "calls": []
+  },
+  {
+    "name": "FUN_000008fc",
+    "address": "000008fc",
+    "signature": "undefined FUN_000008fc()",
+    "external": false,
+    "calls": ["FUN_000017e8", "FUN_00000850", "FUN_00000a68", "FUN_0000948c", "FUN_000007f8", "FUN_00001ce4"]
+  },
+  {
+    "name": "FUN_000009fc",
+    "address": "000009fc",
+    "signature": "undefined FUN_000009fc()",
+    "external": false,
+    "calls": ["FUN_00000a68", "FUN_00008edc", "FUN_00001ce4"]
+  },
+  {
+    "name": "FUN_00000a68",
+    "address": "00000a68",
+    "signature": "undefined FUN_00000a68()",
+    "external": false,
+    "calls": ["FUN_00000c2c", "FUN_00000850", "FUN_0000948c", "FUN_00001ce4"]
+  },
+  {
+    "name": "FUN_00000c2c",
+    "address": "00000c2c",
+    "signature": "undefined FUN_00000c2c()",
+    "external": false,
+    "calls": ["FUN_00001ce4", "FUN_0000117c"]
+  },
+  {
+    "name": "FUN_0000117c",
+    "address": "0000117c",
+    "signature": "undefined FUN_0000117c()",
+    "external": false,
+    "calls": ["FUN_00001ce4"]
+  },
+  {
+    "name": "FUN_000011dc",
+    "address": "000011dc",
+    "signature": "undefined FUN_000011dc()",
+    "external": false,
+    "calls": ["FUN_0000948c", "FUN_00001554", "FUN_000013cc"]
+  },
+  {
+    "name": "FUN_00001210",
+    "address": "00001210",
+    "signature": "undefined FUN_00001210()",
+    "external": false,
+    "calls": ["FUN_0000943c", "FUN_00009c08", "FUN_0000948c", "FUN_000093f0", "FUN_00001ce4", "FUN_00004e98", "FUN_00004ec8"]
+  },
+  {
+    "name": "FUN_00001350",
+    "address": "00001350",
+    "signature": "undefined FUN_00001350()",
+    "external": false,
+    "calls": ["FUN_00001534", "FUN_0000948c", "FUN_00001ce4"]
+  },
+  {
+    "name": "FUN_000013cc",
+    "address": "000013cc",
+    "signature": "undefined FUN_000013cc()",
+    "external": false,
+    "calls": ["FUN_00001534", "FUN_0000948c", "FUN_00009000", "FUN_00001ce4"]
+  },
+  {
+    "name": "FUN_000014cc",
+    "address": "000014cc",
+    "signature": "undefined FUN_000014cc()",
+    "external": false,
+    "calls": ["FUN_00001534", "FUN_0000948c", "FUN_00001ce4"]
+  },
+  {
+    "name": "FUN_00001534",
+    "address": "00001534",
+    "signature": "undefined FUN_00001534()",
+    "external": false,
+    "calls": ["thunk_FUN_000093ea", "FUN_0000948c"]
+  },
+  {
+    "name": "FUN_00001554",
+    "address": "00001554",
+    "signature": "undefined FUN_00001554()",
+    "external": false,
+    "calls": ["FUN_000007dc", "FUN_0000948c", "FUN_00009000", "FUN_000008fc", "FUN_00001ce4", "FUN_000017c8"]
+  },
+  {
+    "name": "FUN_00001708",
+    "address": "00001708",
+    "signature": "undefined FUN_00001708(undefined param_1, undefined param_2, undefined param_3, undefined param_4, undefined4 param_5)",
+    "external": false,
+    "calls": ["FUN_0000948c", "FUN_00001ce4", "FUN_000017c8"]
+  },
+  {
+    "name": "FUN_000017c8",
+    "address": "000017c8",
+    "signature": "undefined FUN_000017c8()",
+    "external": false,
+    "calls": ["FUN_0000948c"]
+  },
+  {
+    "name": "FUN_000017e8",
+    "address": "000017e8",
+    "signature": "undefined FUN_000017e8()",
+    "external": false,
+    "calls": ["FUN_0000948c"]
+  },
+  {
+    "name": "FUN_000017f8",
+    "address": "000017f8",
+    "signature": "undefined FUN_000017f8()",
+    "external": false,
+    "calls": ["FUN_000086d4", "FUN_00005774", "FUN_00009b10", "FUN_00008550", "FUN_000061be", "FUN_00009138", "FUN_000056c0", "FUN_00001ce4", "FUN_00009a28"]
+  },
+  {
+    "name": "FUN_00001ce4",
+    "address": "00001ce4",
+    "signature": "undefined FUN_00001ce4()",
+    "external": false,
+    "calls": ["FUN_00001d2c"]
+  },
+  {
+    "name": "FUN_00001d0a",
+    "address": "00001d0a",
+    "signature": "undefined FUN_00001d0a()",
+    "external": false,
+    "calls": []
+  },
+  {
+    "name": "FUN_00001d2c",
+    "address": "00001d2c",
+    "signature": "undefined FUN_00001d2c()",
+    "external": false,
+    "calls": ["FUN_00008b14", "FUN_000090b4", "FUN_00001e00", "FUN_00001d0a"]
+  },
+  {
+    "name": "FUN_00001e00",
+    "address": "00001e00",
+    "signature": "undefined FUN_00001e00(undefined param_1, undefined param_2, undefined param_3, undefined param_4, undefined4 param_5)",
+    "external": false,
+    "calls": ["FUN_00009000", "FUN_00008b64"]
+  },
+  {
+    "name": "FUN_00001f38",
+    "address": "00001f38",
+    "signature": "undefined FUN_00001f38()",
+    "external": false,
+    "calls": ["FUN_0000948c", "FUN_00009304", "FUN_00001fc8"]
+  },
+  {
+    "name": "FUN_00001fc8",
+    "address": "00001fc8",
+    "signature": "undefined FUN_00001fc8()",
+    "external": false,
+    "calls": ["FUN_0000943c", "FUN_0000932c", "FUN_00009380", "FUN_000093f0"]
+  },
+  {
+    "name": "FUN_00002094",
+    "address": "00002094",
+    "signature": "undefined FUN_00002094()",
+    "external": false,
+    "calls": ["FUN_00008f60", "FUN_00008edc", "FUN_00009000", "FUN_00001ce4"]
+  },
+  {
+    "name": "FUN_00002340",
+    "address": "00002340",
+    "signature": "undefined FUN_00002340()",
+    "external": false,
+    "calls": ["thunk_FUN_000093ea", "FUN_0000948c", "FUN_00009000", "FUN_00001ce4", "FUN_00001708", "FUN_000014cc"]
+  },
+  {
+    "name": "FUN_000026ac",
+    "address": "000026ac",
+    "signature": "undefined FUN_000026ac(undefined param_1, undefined param_2, undefined param_3, undefined param_4, undefined4 param_5)",
+    "external": false,
+    "calls": ["FUN_00004e68", "FUN_00001ce4"]
+  },
+  {
+    "name": "FUN_00002734",
+    "address": "00002734",
+    "signature": "undefined FUN_00002734(undefined param_1, undefined param_2, undefined param_3, undefined param_4, undefined4 param_5)",
+    "external": false,
+    "calls": ["FUN_00009000", "FUN_00001ce4", "FUN_00004e98"]
+  },
+  {
+    "name": "FUN_000028a4",
+    "address": "000028a4",
+    "signature": "undefined FUN_000028a4(undefined param_1, undefined param_2, undefined param_3, undefined param_4, undefined4 param_5)",
+    "external": false,
+    "calls": ["FUN_00001ce4", "FUN_00004e98"]
+  },
+  {
+    "name": "FUN_0000292c",
+    "address": "0000292c",
+    "signature": "undefined FUN_0000292c()",
+    "external": false,
+    "calls": ["FUN_00009000", "FUN_00004e68", "FUN_00001ce4", "FUN_000026ac"]
+  },
+  {
+    "name": "FUN_000033b4",
+    "address": "000033b4",
+    "signature": "undefined FUN_000033b4()",
+    "external": false,
+    "calls": ["FUN_00009c08", "FUN_00009000", "FUN_00001ce4", "FUN_00002734", "FUN_000028a4"]
+  },
+  {
+    "name": "FUN_00004d4c",
+    "address": "00004d4c",
+    "signature": "undefined FUN_00004d4c()",
+    "external": false,
+    "calls": ["FUN_00008edc", "FUN_00009000", "FUN_000054e4", "FUN_00008da0"]
+  },
+  {
+    "name": "FUN_00004de4",
+    "address": "00004de4",
+    "signature": "undefined FUN_00004de4()",
+    "external": false,
+    "calls": ["FUN_00008edc", "FUN_00009000", "FUN_000054e4", "FUN_00008da0"]
+  },
+  {
+    "name": "FUN_00004e68",
+    "address": "00004e68",
+    "signature": "undefined FUN_00004e68(undefined param_1, undefined param_2, undefined param_3, undefined param_4, undefined4 param_5)",
+    "external": false,
+    "calls": ["FUN_00009000", "FUN_00005064"]
+  },
+  {
+    "name": "FUN_00004e98",
+    "address": "00004e98",
+    "signature": "undefined FUN_00004e98(undefined param_1, undefined param_2, undefined param_3, undefined param_4, undefined4 param_5)",
+    "external": false,
+    "calls": ["FUN_00009000", "FUN_00005064"]
+  },
+  {
+    "name": "FUN_00004ec8",
+    "address": "00004ec8",
+    "signature": "undefined FUN_00004ec8(undefined param_1, undefined param_2, undefined param_3, undefined param_4, undefined4 param_5)",
+    "external": false,
+    "calls": ["FUN_0000013c", "FUN_00009000", "FUN_00004e68", "FUN_00001ce4", "FUN_00005064"]
+  },
+  {
+    "name": "FUN_00005064",
+    "address": "00005064",
+    "signature": "undefined FUN_00005064(undefined param_1, undefined param_2, undefined param_3, undefined param_4, undefined4 param_5, undefined4 param_6)",
+    "external": false,
+    "calls": ["FUN_0000013c", "FUN_00008edc", "FUN_00009000", "FUN_000054e4", "FUN_00001ce4", "FUN_00005064", "FUN_00008da0"]
+  },
+  {
+    "name": "FUN_000054e4",
+    "address": "000054e4",
+    "signature": "undefined FUN_000054e4(undefined param_1, undefined param_2, undefined param_3, undefined param_4, undefined4 param_5)",
+    "external": false,
+    "calls": ["FUN_00005634", "FUN_00005618", "FUN_00001ce4", "FUN_000055fc"]
+  },
+  {
+    "name": "FUN_000055fc",
+    "address": "000055fc",
+    "signature": "undefined FUN_000055fc()",
+    "external": false,
+    "calls": ["FUN_00009000"]
+  },
+  {
+    "name": "FUN_00005618",
+    "address": "00005618",
+    "signature": "undefined FUN_00005618()",
+    "external": false,
+    "calls": ["FUN_00009000"]
+  },
+  {
+    "name": "FUN_00005634",
+    "address": "00005634",
+    "signature": "undefined FUN_00005634()",
+    "external": false,
+    "calls": ["FUN_00009000"]
+  },
+  {
+    "name": "FUN_00005688",
+    "address": "00005688",
+    "signature": "undefined FUN_00005688()",
+    "external": false,
+    "calls": []
+  },
+  {
+    "name": "FUN_000056c0",
+    "address": "000056c0",
+    "signature": "undefined FUN_000056c0()",
+    "external": false,
+    "calls": ["FUN_000061c0", "FUN_00001ce4", "FUN_000083c4"]
+  },
+  {
+    "name": "FUN_00005774",
+    "address": "00005774",
+    "signature": "undefined FUN_00005774()",
+    "external": false,
+    "calls": ["FUN_00001ce4"]
+  },
+  {
+    "name": "FUN_00005804",
+    "address": "00005804",
+    "signature": "undefined FUN_00005804()",
+    "external": false,
+    "calls": ["FUN_00001ce4", "FUN_00004ec8", "FUN_000026ac"]
+  },
+  {
+    "name": "FUN_00005a8c",
+    "address": "00005a8c",
+    "signature": "undefined FUN_00005a8c()",
+    "external": false,
+    "calls": ["FUN_00009000"]
+  },
+  {
+    "name": "FUN_00005ae4",
+    "address": "00005ae4",
+    "signature": "undefined FUN_00005ae4()",
+    "external": false,
+    "calls": ["FUN_000094c8", "FUN_00009970", "FUN_00008edc", "FUN_00009000", "FUN_00001ce4"]
+  },
+  {
+    "name": "FUN_00005cb0",
+    "address": "00005cb0",
+    "signature": "undefined FUN_00005cb0()",
+    "external": false,
+    "calls": ["FUN_00008edc", "FUN_00009000"]
+  },
+  {
+    "name": "FUN_00005fb0",
+    "address": "00005fb0",
+    "signature": "undefined FUN_00005fb0()",
+    "external": false,
+    "calls": ["FUN_00008ccc"]
+  },
+  {
+    "name": "FUN_00005fbe",
+    "address": "00005fbe",
+    "signature": "undefined FUN_00005fbe()",
+    "external": false,
+    "calls": ["FUN_000096d8"]
+  },
+  {
+    "name": "FUN_00005fca",
+    "address": "00005fca",
+    "signature": "undefined FUN_00005fca()",
+    "external": false,
+    "calls": ["FUN_000096d8"]
+  },
+  {
+    "name": "FUN_00006088",
+    "address": "00006088",
+    "signature": "undefined FUN_00006088()",
+    "external": false,
+    "calls": ["FUN_00009c08", "FUN_00009000"]
+  },
+  {
+    "name": "FUN_00006120",
+    "address": "00006120",
+    "signature": "undefined FUN_00006120()",
+    "external": false,
+    "calls": []
+  },
+  {
+    "name": "FUN_000061be",
+    "address": "000061be",
+    "signature": "undefined FUN_000061be()",
+    "external": false,
+    "calls": []
+  },
+  {
+    "name": "FUN_000061c0",
+    "address": "000061c0",
+    "signature": "undefined FUN_000061c0()",
+    "external": false,
+    "calls": ["FUN_000094c8", "FUN_00006120", "FUN_00005ae4", "FUN_00009000", "FUN_00005cb0", "FUN_00009cd4", "FUN_00008b4c", "FUN_00005804", "FUN_000098f8", "FUN_0000013c", "FUN_00005a8c", "FUN_00005fb0", "FUN_00009b10", "FUN_000001a0", "FUN_00009970", "FUN_00008edc", "FUN_000098c0", "FUN_0000036c", "FUN_00001ce4", "FUN_00008da0"]
+  },
+  {
+    "name": "FUN_000083c4",
+    "address": "000083c4",
+    "signature": "undefined FUN_000083c4()",
+    "external": false,
+    "calls": ["FUN_000094c8", "FUN_000098f8", "FUN_00009970", "FUN_000098c0", "FUN_00009000", "FUN_0000036c", "FUN_00009934", "FUN_00009cd4", "FUN_00005804"]
+  },
+  {
+    "name": "FUN_00008550",
+    "address": "00008550",
+    "signature": "undefined FUN_00008550()",
+    "external": false,
+    "calls": ["FUN_00001ce4"]
+  },
+  {
+    "name": "FUN_000085ac",
+    "address": "000085ac",
+    "signature": "undefined FUN_000085ac(undefined param_1, undefined param_2, undefined param_3, undefined param_4, undefined4 param_5, undefined param_6, undefined param_7, undefined4 param_8)",
+    "external": false,
+    "calls": ["FUN_00005a8c", "FUN_00001ce4"]
+  },
+  {
+    "name": "FUN_000086d4",
+    "address": "000086d4",
+    "signature": "undefined FUN_000086d4()",
+    "external": false,
+    "calls": ["FUN_00001ce4"]
+  },
+  {
+    "name": "FUN_00008730",
+    "address": "00008730",
+    "signature": "undefined FUN_00008730()",
+    "external": false,
+    "calls": []
+  },
+  {
+    "name": "FUN_00008b14",
+    "address": "00008b14",
+    "signature": "undefined FUN_00008b14()",
+    "external": false,
+    "calls": ["FUN_00008730"]
+  },
+  {
+    "name": "FUN_00008b4c",
+    "address": "00008b4c",
+    "signature": "undefined FUN_00008b4c()",
+    "external": false,
+    "calls": []
+  },
+  {
+    "name": "FUN_00008b64",
+    "address": "00008b64",
+    "signature": "undefined FUN_00008b64()",
+    "external": false,
+    "calls": []
+  },
+  {
+    "name": "FUN_00008ccc",
+    "address": "00008ccc",
+    "signature": "undefined FUN_00008ccc()",
+    "external": false,
+    "calls": ["FUN_00009c08", "FUN_00001ce4"]
+  },
+  {
+    "name": "FUN_00008d18",
+    "address": "00008d18",
+    "signature": "undefined FUN_00008d18()",
+    "external": false,
+    "calls": []
+  },
+  {
+    "name": "FUN_00008d24",
+    "address": "00008d24",
+    "signature": "undefined FUN_00008d24()",
+    "external": false,
+    "calls": ["FUN_00001ce4"]
+  },
+  {
+    "name": "FUN_00008da0",
+    "address": "00008da0",
+    "signature": "undefined FUN_00008da0()",
+    "external": false,
+    "calls": ["thunk_FUN_000093ea", "FUN_00005688", "FUN_0000907c", "FUN_00009000"]
+  },
+  {
+    "name": "FUN_00008edc",
+    "address": "00008edc",
+    "signature": "undefined FUN_00008edc()",
+    "external": false,
+    "calls": ["FUN_00009000"]
+  },
+  {
+    "name": "FUN_00008f60",
+    "address": "00008f60",
+    "signature": "undefined FUN_00008f60()",
+    "external": false,
+    "calls": ["FUN_0000948c", "FUN_00009000", "FUN_00001ce4", "FUN_00009cd4"]
+  },
+  {
+    "name": "FUN_00009000",
+    "address": "00009000",
+    "signature": "undefined FUN_00009000()",
+    "external": false,
+    "calls": ["FUN_000007dc", "FUN_00009070", "FUN_000008fc", "FUN_00001ce4"]
+  },
+  {
+    "name": "FUN_00009070",
+    "address": "00009070",
+    "signature": "undefined FUN_00009070()",
+    "external": false,
+    "calls": []
+  },
+  {
+    "name": "FUN_0000907c",
+    "address": "0000907c",
+    "signature": "undefined FUN_0000907c()",
+    "external": false,
+    "calls": []
+  },
+  {
+    "name": "FUN_000090b4",
+    "address": "000090b4",
+    "signature": "undefined FUN_000090b4()",
+    "external": false,
+    "calls": ["FUN_0000013c", "thunk_FUN_000093de"]
+  },
+  {
+    "name": "FUN_0000910c",
+    "address": "0000910c",
+    "signature": "undefined FUN_0000910c()",
+    "external": false,
+    "calls": ["FUN_0000932c"]
+  },
+  {
+    "name": "FUN_00009126",
+    "address": "00009126",
+    "signature": "undefined FUN_00009126()",
+    "external": false,
+    "calls": ["FUN_00009380"]
+  },
+  {
+    "name": "FUN_00009138",
+    "address": "00009138",
+    "signature": "undefined FUN_00009138()",
+    "external": false,
+    "calls": []
+  },
+  {
+    "name": "FUN_0000913c",
+    "address": "0000913c",
+    "signature": "undefined FUN_0000913c()",
+    "external": false,
+    "calls": ["FUN_0000932c", "FUN_00009380"]
+  },
+  {
+    "name": "FUN_0000919a",
+    "address": "0000919a",
+    "signature": "undefined FUN_0000919a()",
+    "external": false,
+    "calls": ["FUN_00009126", "FUN_0000910c"]
+  },
+  {
+    "name": "FUN_00009200",
+    "address": "00009200",
+    "signature": "undefined FUN_00009200()",
+    "external": false,
+    "calls": ["FUN_0000932c", "FUN_00009380"]
+  },
+  {
+    "name": "FUN_0000928e",
+    "address": "0000928e",
+    "signature": "undefined FUN_0000928e()",
+    "external": false,
+    "calls": []
+  },
+  {
+    "name": "FUN_000092c8",
+    "address": "000092c8",
+    "signature": "undefined FUN_000092c8()",
+    "external": false,
+    "calls": []
+  },
+  {
+    "name": "FUN_00009304",
+    "address": "00009304",
+    "signature": "undefined FUN_00009304()",
+    "external": false,
+    "calls": []
+  },
+  {
+    "name": "FUN_0000932c",
+    "address": "0000932c",
+    "signature": "undefined FUN_0000932c()",
+    "external": false,
+    "calls": ["FUN_00009000"]
+  },
+  {
+    "name": "FUN_00009380",
+    "address": "00009380",
+    "signature": "undefined FUN_00009380()",
+    "external": false,
+    "calls": ["FUN_00009000"]
+  },
+  {
+    "name": "thunk_FUN_000093de",
+    "address": "000093d4",
+    "signature": "undefined thunk_FUN_000093de()",
+    "external": false,
+    "calls": ["FUN_000093de"]
+  },
+  {
+    "name": "FUN_000093de",
+    "address": "000093de",
+    "signature": "undefined FUN_000093de()",
+    "external": false,
+    "calls": []
+  },
+  {
+    "name": "thunk_FUN_000093ea",
+    "address": "000093e4",
+    "signature": "undefined thunk_FUN_000093ea()",
+    "external": false,
+    "calls": ["FUN_000093ea"]
+  },
+  {
+    "name": "FUN_000093ea",
+    "address": "000093ea",
+    "signature": "undefined FUN_000093ea()",
+    "external": false,
+    "calls": []
+  },
+  {
+    "name": "FUN_000093f0",
+    "address": "000093f0",
+    "signature": "undefined FUN_000093f0(undefined param_1, undefined param_2, undefined param_3, undefined param_4, undefined4 param_5)",
+    "external": false,
+    "calls": ["FUN_00009000"]
+  },
+  {
+    "name": "FUN_0000943c",
+    "address": "0000943c",
+    "signature": "undefined FUN_0000943c(undefined param_1, undefined param_2, undefined param_3, undefined param_4, undefined4 param_5)",
+    "external": false,
+    "calls": ["FUN_00009000"]
+  },
+  {
+    "name": "FUN_0000948c",
+    "address": "0000948c",
+    "signature": "undefined FUN_0000948c()",
+    "external": false,
+    "calls": ["FUN_000094c8", "FUN_000098f8", "FUN_00009970", "FUN_000098c0", "FUN_00009934"]
+  },
+  {
+    "name": "FUN_000094c8",
+    "address": "000094c8",
+    "signature": "undefined FUN_000094c8()",
+    "external": false,
+    "calls": ["FUN_00001ce4"]
+  },
+  {
+    "name": "FUN_00009554",
+    "address": "00009554",
+    "signature": "undefined FUN_00009554()",
+    "external": false,
+    "calls": ["FUN_00009000", "FUN_00001ce4"]
+  },
+  {
+    "name": "FUN_000096d8",
+    "address": "000096d8",
+    "signature": "undefined FUN_000096d8()",
+    "external": false,
+    "calls": ["FUN_00001ce4"]
+  },
+  {
+    "name": "FUN_00009794",
+    "address": "00009794",
+    "signature": "undefined FUN_00009794()",
+    "external": false,
+    "calls": ["FUN_00001ce4"]
+  },
+  {
+    "name": "FUN_000098c0",
+    "address": "000098c0",
+    "signature": "undefined FUN_000098c0()",
+    "external": false,
+    "calls": ["FUN_00001ce4"]
+  },
+  {
+    "name": "FUN_000098f8",
+    "address": "000098f8",
+    "signature": "undefined FUN_000098f8()",
+    "external": false,
+    "calls": ["FUN_00001ce4"]
+  },
+  {
+    "name": "FUN_00009934",
+    "address": "00009934",
+    "signature": "undefined FUN_00009934()",
+    "external": false,
+    "calls": ["FUN_00001ce4"]
+  },
+  {
+    "name": "FUN_00009970",
+    "address": "00009970",
+    "signature": "undefined FUN_00009970()",
+    "external": false,
+    "calls": ["FUN_00001ce4"]
+  },
+  {
+    "name": "FUN_00009a28",
+    "address": "00009a28",
+    "signature": "undefined FUN_00009a28(undefined param_1, undefined param_2, undefined param_3, undefined param_4, undefined4 param_5)",
+    "external": false,
+    "calls": ["FUN_00009c08", "FUN_00001ce4", "FUN_00009cd4"]
+  },
+  {
+    "name": "FUN_00009b10",
+    "address": "00009b10",
+    "signature": "undefined FUN_00009b10(undefined param_1, undefined param_2, undefined param_3, undefined param_4, undefined4 param_5)",
+    "external": false,
+    "calls": ["FUN_00001ce4", "FUN_00009cd4"]
+  },
+  {
+    "name": "FUN_00009c08",
+    "address": "00009c08",
+    "signature": "undefined FUN_00009c08()",
+    "external": false,
+    "calls": ["FUN_00009000", "FUN_00001ce4"]
+  },
+  {
+    "name": "FUN_00009cd4",
+    "address": "00009cd4",
+    "signature": "undefined FUN_00009cd4()",
+    "external": false,
+    "calls": ["FUN_00009000", "FUN_00001ce4"]
+  },
+  {
+    "name": "FUN_00009d90",
+    "address": "00009d90",
+    "signature": "undefined FUN_00009d90()",
+    "external": false,
+    "calls": ["FUN_00001210", "FUN_00008f60", "FUN_0000a004", "FUN_00004d4c", "FUN_000009fc", "FUN_00002094", "FUN_000008fc", "FUN_00009000", "FUN_00004de4", "FUN_000017f8", "FUN_000007dc", "FUN_00008edc", "FUN_00001ce4"]
+  },
+  {
+    "name": "FUN_0000a004",
+    "address": "0000a004",
+    "signature": "undefined FUN_0000a004()",
+    "external": false,
+    "calls": ["FUN_0000948c", "FUN_000008a8"]
+  },
+  {
+    "name": "FUN_0000a120",
+    "address": "0000a120",
+    "signature": "undefined FUN_0000a120()",
+    "external": false,
+    "calls": ["FUN_00008d18", "FUN_00001ce4"]
+  }
+]

@@ -1,0 +1,17 @@
+Binary Analysis Summary
+=======================
+
+File: d00_e07_DRIVER_ENTRIES~0x28_0.1C.0.3
+Architecture: ARM
+Address Size: 32 bit
+Endianness: false (big endian)
+Compiler: default
+
+Functions:
+  Total: 669
+  External: 0
+  Thunks: 0
+  User-defined: 669
+
+Memory Sections:
+  ram: 00000000 - 0001a66f (108144 bytes) [X] [W] [R]

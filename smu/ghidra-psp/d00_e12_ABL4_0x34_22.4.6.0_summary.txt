@@ -1,0 +1,17 @@
+Binary Analysis Summary
+=======================
+
+File: d00_e12_ABL4~0x34_22.4.6.0
+Architecture: ARM
+Address Size: 32 bit
+Endianness: false (big endian)
+Compiler: default
+
+Functions:
+  Total: 83
+  External: 0
+  Thunks: 2
+  User-defined: 81
+
+Memory Sections:
+  ram: 00000000 - 0000a0cf (41168 bytes) [X] [W] [R]

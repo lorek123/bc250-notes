@@ -1,0 +1,890 @@
+00000380: !!! Unrecognize ABL Version string !!!
+00000648: 	Synchronize debug data from slaves at debug sync point %04x
+
+00000688: 	MCM Info
+
+00000694: 		SocketCount : %d
+
+000006a8: 		Socket ID : %d
+
+000006bc: 		Dies per Socket : %d
+
+000006d4: 		Die Count : %d
+
+000006e8: 		Die ID : %d
+
+00000700: FALSE
+00000708: 		Local Master: %s
+
+0000071c: 		System Master: %s
+
+00000734: 
+Debug Sync
+
+00000748: 
+Master: Debug Sync - Get Data from slaves
+
+00000774: 	Error Slave comm
+
+00000790: 		Slave %d, TP: %02x 
+
+000007a8: 
+Slave: Debug Sync
+
+000007bc: 
+Slave: Debug Sync - Send data to Master
+
+000007e8: 		Debug Sync Disabled - Die count < = 1
+
+000008c0: 	Flush Error Reporting Log
+
+00000998: 
+Initialize Error Reporting Log 
+
+00000aa4: 
+Report New Log Entry
+
+00000c0c: 	Err Port Disabled
+
+00000c20: 	Send ABL Error Log
+
+00000c3c: 	Error Log transmission start
+
+00000c64: 	Error Log transmission End
+
+00000cdc: 	Error Reporting waiting for ACK
+
+00000d38: 	Error Reporting waiting for ACK
+
+00000ea8: REG28_%x
+
+00000eb4: REG40_%x
+
+00000f18: 
+Master: ABL, Broadcast Data to Slaves from Master
+
+00000fd8: 
+[ERROR]: Master: ABL, Error, this is not the master
+
+00001014: 
+[ERROR]: Master: ABL, Error, no sync function found
+
+00001094: 
+Master: Get Data from Slaves
+
+00001188: 
+[ERROR]: Slave: ABL, Error, No sync function found
+
+00001220: 
+[ERROR]: Slave: ABL, Error, invalid slave in broadcast
+
+0000125c: 
+Slave: ABL, Get Broadcast Data from Master
+
+000012f0: 
+[ERROR]: Slave: ABL, Error, invalid slave n send data
+
+00001328: 
+Slave: ABL, Send Data to Master
+
+00001384: 
+Slave: ABL, Init Slave states
+
+00001a44: 	Phase 1 Initialization - UMC Programming
+
+00001a70: MEM PARAMS:
+
+00001a80: 	AGESA BL Heap Size : %04x
+
+00001a9c: 	BottomIo : %04x
+
+00001ab0: 	MemHoleRemap : %d
+
+00001ac4: 	UserTimingMode : %d
+
+00001adc: 	MemClockValue : %d
+
+00001af4: 	ChannelIntlv : %d
+
+00001b08: 	PowerDown : %d
+
+00001b1c: 	Parity : %d
+
+00001b2c: 	BankSwizzle : %d
+
+00001b40: 	MemClr : %d
+
+00001b50: 	UmaMode : %d
+
+00001b60: 	UmaSize : 0x%lx
+
+00001b74: 	DctEnValue : 0x%04x
+
+00001b8c: 	DctEnValueMos : 0x%04x
+
+00001ba8: 	AddressHashBank : %d
+
+00001bc0: 	CABI : %d
+
+00001bcc: 	EDC : %d
+
+00001bd8: 	EDC RLY : %d
+
+00001be8: 	DBI : %d
+
+00001bf4: 	ExternalVrefCtl : %d
+
+00001c0c: 	AMP : %d
+
+
+00001e40: 
+Synchronize All Slave Dies with the Master.
+
+00001e70: 	MCM Info
+
+00001e7c: 		SocketCount : %d
+
+00001e90: 		Socket ID : %d
+
+00001ea4: 		Dies per Socket : %d
+
+00001ebc: 		Die Count : %d
+
+00001ed0: 		Die ID : %d
+
+00001ee8: FALSE
+00001ef0: 		Local Master: %s
+
+00001f04: 		System Master: %s
+
+00001f1c: 
+System Master waiting on callback from slaves.
+
+00001f50: 	Slave %d
+
+00001f5c: 		Slave ID : %d
+
+00001f70: 		Slave Socket ID : %d
+
+00001f88: 		Slave Die ID : %d
+
+00001fa0: 
+Fatal error, received from ABL Get data.
+
+00001fcc: 
+All Slave Dies synchronized  with the Master.
+
+00002000: 		Sync All Dies Disabled - Die count < = 1
+
+000021a4: 
+	Parent APCB parameter disabled: Token %04x, Timepoint %04x
+
+000021e8: 
+	Get internal APCB parameter: Token %04x, Timepoint %04x
+
+000026e8: 
+	[MEM_CONF] Override Memory Clock Speed: %04dMHz
+
+0000271c: 
+	Override Memory clock: 0x%x
+
+00002740: 	[MEM_CONF] Override Memory Timing tCL:    %02d
+
+00002774: 	[MEM_CONF] Override Memory Timing tRAS:   %02d
+
+000027a8: 	[MEM_CONF] Override Memory Timing tRCDRD: %02d
+
+000027dc: 	[MEM_CONF] Override Memory Timing tRCDWR: %02d
+
+00002810: 	[MEM_CONF] Override Memory Timing tRCAb:  %02d
+
+00002844: 	[MEM_CONF] Override Memory Timing tRCPb:  %02d
+
+00002878: 	[MEM_CONF] Override Memory Timing tRPAb:  %02d
+
+000028ac: 	[MEM_CONF] Override Memory Timing tRPPb:  %02d
+
+000028e0: 	[MEM_CONF] Override Memory Timing tRRDS:  %d
+
+00002910: 	[MEM_CONF] Override Memory Timing tRRDL:  %02d
+
+00002944: 	[MEM_CONF] Override Memory Timing tRTP:   %02d
+
+00002978: 	[MEM_CONF] Override Memory Timing tFAW:   %02d
+
+000029ac: 	[MEM_CONF] Override Memory Timing tREF:   %04d
+
+000029e0: 	[MEM_CONF] Override Memory Timing RFCPb:  %04d
+
+00002a14: 	[MEM_CONF] Override Memory Timing tRFC:   %04d
+
+00002a48: 
+	Override TCL: %d
+
+00002a5c: 
+	Override Trcdrd: %d
+
+00002a74: 
+	Override Trcdwr: %d
+
+00002ccc: 
+	Override Tras: %d
+
+00002ce4: 
+	Override TrpAb: %d
+
+00002cfc: 
+	Override TrpPb: %d
+
+00002d14: 
+	Override TrcAb: %d
+
+00002d2c: 
+	Override TrcPb: %d
+
+00002d44: 
+	Override TrrdL: %d
+
+00002d5c: 
+	Override TrrdS: %d
+
+00002d74: 
+	Override Trtp: %d
+
+00002d8c: 
+	Override Tfaw: %d
+
+000031ac: 
+	Override UclkDiv1 M0: %d
+
+000031c8: 
+	Override UclkDiv1 M1: %d
+
+000031e4: 
+	Override UclkDiv1 M2: %d
+
+00003200: 
+	Override UclkDiv1 M3: %d
+
+0000321c: 
+	Override TwtrL: %d
+
+00003234: 
+	Override TwtrS: %d
+
+0000324c: 
+	Override Tcksrx: 0x%x
+
+00003268: 
+	Override Tcksre: 0x%x
+
+00003284: 
+	Override Tpd: 0x%x
+
+0000329c: 
+	Override BFDisDynAdrTri: %d
+
+000032bc: 
+	Override CmdThrottleMode Control (OdtsCmdThrotEn): %d
+
+000032f8: 
+	Override CmdThrottleMode (OdtsCmdThrotCyc): %d
+
+0000332c: 
+	Override Write CRC Enable (WrCrcEn): %d
+
+00003358: 
+	Override MEM Hardware Hisrory (EccHardwareHistoryEn): %d
+
+00003394: 
+	Override Command Parity En (CmdParEn): %d
+
+000033c4: 
+	Override RCD Parity (RDimmParEn): %d
+
+000033ec: 
+	Override DBI (WrDbiEn): %d
+
+00003c94: 
+	Override APCB_TOKEN_CBS_DBG_MEM_DIAG_HYBRID_ALLBANK_CTL: %d
+
+000042cc: 
+	Override APCB_TOKEN_CBS_DBG_MEM_DIAG_REF_AB_INS_PERD: %d
+
+00004308: 
+	Override TwrwrSc: %d
+
+00004320: 
+	Override TwrwrSd: %d
+
+00004338: 
+	Override TwrwrDd: %d
+
+00004350: 
+	Override TrdrdSc: %d
+
+00004368: 
+	Override TrdrdSd: %d
+
+00004380: 
+	Override TrdrdDd: %d
+
+00004398: 
+	Override Trdwr: %d
+
+000043b0: 
+	Override Twrrd: %d
+
+000043c8: 
+	Override Power Down Enable: %d
+
+000043ec: 
+	Override Power Down Mode: %d
+
+00004628: 
+	Override Power Down Delay: %d
+
+0000464c: 
+	Override Aggressive Power Down Enable: %d
+
+0000467c: 
+	Override Aggressive Power Down Delay: %d
+
+000046a8: 
+	Additional CAS-CAS Delay Cycles: %d
+
+000046d0: 
+	Additional Read to Write Turnaround Cycles: %d
+
+00004704: 
+	Override OnDimmTemperatureSensor(OdtsEn): %d
+
+0000479c: 
+	Override Fclk: %d
+
+00004a1c: 
+APCB Config parameter %04x mapped to CBS token %04x
+
+00004a54: 
+Get config parameter: token %04x, timepoint %04x
+
+00004a88: 
+Get config parameter from default: token %04x, timepoint %04x
+
+00004edc: 
+		Initializing APCB parameters for Type[%d]...
+
+00004f10: 
+		Type[%d], Token[0x%x] = 
+00004ff8: 
+		ToSearch: 	GroupId : 0x%04X,  TypeId : 0x%04X
+00005030: 		Found type id match!
+
+00005144: DF UMC SDP connect port %d
+
+00005164: DF UMC SDP connect complete
+
+00005940: 		GetMemAcTimingParam
+
+00005958: 			ulClkRange : %x
+
+0000596c: 			usMRS : %x
+
+0000597c: 			usEMRS : %x
+
+0000598c: 			ucCL : %x
+
+0000599c: 			ucWL : %x
+
+000059ac: 			uctRAS : %x
+
+000059bc: 			uctRC : %x
+
+000059cc: 			uctRFC : %x
+
+000059dc: 			uctRCDR : %x
+
+000059f0: 			uctRCDW : %x
+
+00005a04: 			uctRP : %x
+
+00005a14: 			uctRRD : %x
+
+00005a24: 			uctWR : %x
+
+00005a34: 			ucPPD : %x
+
+00005a44: 			uctWTR : %x
+
+00005a54: 			uctPDIX : %x
+
+00005a68: 			uctFAW : %x
+
+00005a78: 			uctAOND : %x
+
+00005a8c: 			ucMR2_Lo_flag : %x
+
+00005aa4: 			ucMR2_Hi_tCCDL : %x
+
+00005abc: 			uctCRCRL : %x
+
+00005ad0: 			uctCRCWL : %x
+
+00005ae4: 			uctCKE : %x
+
+00005af4: 			uctCKRSE : %x
+
+00005b08: 			uctCKRSX : %x
+
+00005b1c: 			usMR2 : %x
+
+00005b2c: 			usMR3 : %x
+
+00005b3c: 			usMR4 : %x
+
+00005b4c: 			usMR5 : %x
+
+00005b5c: 			usMR6 : %x
+
+00005b6c: 			usMR7 : %x
+
+00005b7c: 			usMR8 : %x
+
+00005b8c: 			usMR9 : %x
+
+00005b9c: 			usMR10 : %x
+
+00005cb4: 	BitWidthPerDram is %d
+
+00005ccc: 	x16 board
+
+00005cdc: 	ulMemClkFreq == 1800Mhz
+
+00005cf8: 	usMRS is %x
+
+00005d0c: 	ulMemClkFreq == 1750Mhz
+
+00005d28: 	usMRS is %x, usMR4 is %x
+
+00005d44: 	x8 board
+
+00005d54: 	ulMemClkFreq == 850Mhz
+
+00005e58: GnbSmuGetMemFreqOfDfPstateCAR Entry
+
+00005e80: Send PSPSMC_MSG_QueryMemFreqOfDfPstate 0x%x
+
+00005f0c: GnbSmuGetNumOfDfPstatesCAR Entry
+
+00005f30: Send PSPSMC_MSG_QueryNumberOfDfPstates 0x%x
+
+0000612c: GnbSmuInitAblCAR Entry
+
+00006144: 	[exing]ulUMCEnValue:  0x%04x
+
+00006164:  ActiveUMCBitMask 0x%x
+
+00006180: Send PSPSMC_MSG_ConfigSocRail 0x%x
+
+000061a8: MemoryClock 0x%x
+
+000061bf: ?Send PSPSMC_MSG_SetupFclkPll 0x%x
+
+000061e4: Send PSPSMC_MSG_SetupUclkPll  0x%x
+
+0000624c: GnbSmuRequestChangeGfxModeCAR Entry
+
+00006274: Send PSPSMC_MSG_ChangeGfxMode 0x%x
+
+000062e4: GnbSmuRequestModeSwitchCAR Entry
+
+00006308: Send PSPSMC_MSG_RequestModeSwitch 0x%x
+
+000065ac: 
+[TP:%04x]
+
+00006618: ASSERT on File[%x] Line[%x]
+
+000068a4: 		Init UMC Config Start
+
+000068f7: n		Init UMC Config End
+
+00006988: 
+#BUFFER  OVERFLOW#
+
+00006d70: PspBootRomServices:DiesPerSocket DieNum: %d
+
+00006db4: PspBootRomServices:PhysDieId: %d
+
+00006dec: PspBootRomServices:SocketId: %d
+
+00006e24: PspBootRomServices:SystemDieCount: %d
+
+00006e60: PspBootRomServices:SystemSocketCount: %d
+
+00006f24: 	
+~SMN R [0x%0x]
+00006f40: 	 0x%02x (8b)
+
+00006f50: 	 0x%04x (16b)
+
+00006f60: 	 0x%08x (32b)
+
+00006ff0: 	
+~SMN BW [0x%0x] = 0x%0x
+
+0000700c: 	
+~SMN W [0x%0x] = 0x%0x
+
+000072cc: ABL1 Loaded
+000072e4: 	ABL Version  : %sCAR%04x
+
+00007300: 	APCB Version : %x
+
+00007314: 	ABL1 __stack_chk_guard = %08x
+
+00007334: 	AGESA MEM - Multi-Die - Debug Support Sync 1
+
+00007368: 
+ABL 1 - AGESA FATAL/ERROR detected
+
+00007390: 
+ABL 1 - Global AGESA FATAL/ERROR memory error detected
+
+000073cc: End of Phase 1 Initialization 
+
+0000769c: CAR GDDR6 DRAM Initialization - Phase 1
+
+000079f0: Mem Phase 1 Start
+
+00007a0c: 		Phase1 AgesaBootMode: %d
+
+00007a28: 
+[MEM_CONF] DiagnosticStatus = %x.
+
+00007a4c: 
+ CMOS BAD, Clear CMOS.
+
+00007a70: 
+[MEM_CONF] WatchDog Fired, Clear CMOS.
+
+00007a9c: WDTF	[MEM_CONF] Read Memory Timing Signature :  %04x
+
+00007adc: 
+[MEM_CONF] WatchDogTimerEn = %x
+
+00007b00: 
+[MEM_CONF] Set the countdown time is %x
+
+00007b2c: 
+	[MEM_CONF] Get Memory Timing Parameters to configure space:
+
+00007b6c: $ABL	[MEM_CONF] Read Memory Timing Checksum :  %02x
+
+00007ba4: 	[MEM_CONF] Read Memory Clock Speed     :  %04d MHz
+
+00007bdc: 	[MEM_CONF] Read Memory Timing tCL      :  %02d
+
+00007c10: 	[MEM_CONF] Read Memory Timing tRAS     :  %02d
+
+00007c44: 	[MEM_CONF] Read Memory Timing tRCDRD   :  %02d
+
+00007c78: 	[MEM_CONF] Read Memory Timing tRCDWR   :  %02d
+
+00007cac: 	[MEM_CONF] Read Memory Timing tRCAb    :  %02d
+
+00007ce0: 	[MEM_CONF] Read Memory Timing tRCPb    :  %02d
+
+00007d14: 	[MEM_CONF] Read Memory Timing tRPAb    :  %02d
+
+00007d48: 	[MEM_CONF] Read Memory Timing tRPPb    :  %02d
+
+00007d7c: 	[MEM_CONF] Read Memory Timing tRRDS    :  %02d
+
+00007db0: 	[MEM_CONF] Read Memory Timing tRRDL    :  %02d
+
+000080fc: 	[MEM_CONF] Read Memory Timing tRTP     :  %02d
+
+00008130: 	[MEM_CONF] Read Memory Timing tFAW     :  %02d
+
+00008164: 	[MEM_CONF] Read Memory Timing tREF     :  %04d
+
+00008198: 	[MEM_CONF] Read Memory Timing RFCPb    :  %04d
+
+000081cc: 	[MEM_CONF] Read Memory Timing tRFC     :  %04d
+
+00008200: 	[MEM_CONF] Read UMA Frame Buffer Size  :  %04d MB
+
+00008234: CHKE	[MEM_CONF] !ERROR!: Invalid Memory Timing Checksum 0x%x !
+
+00008274: 	[MEM_CONF] !ERROR!: Invalid Memory Timing Signature 0x%x!
+
+000082b0: Unsupported Voltage
+000082c4: 
+VDDIO = %s
+
+000082d4: Determine DRAM Target MEMCLK
+
+0000830c: Synchronize MEMCLK Across Channels and Set Limits
+
+00008344: 	ReqstMode=%d, Initial MemClkFreq =%d MHz.
+
+00008370: 	Memory P-state Enabled.
+
+0000838c: 	Memory P-state Disabled.
+
+000083a8: 	NumOfMemPstates =%d.
+
+000083c4: AGESA_TESTPOINT [%04x]
+
+000083dc: 	MemoryControllerInit
+
+000083f4: 	Configration DRAM Address
+
+00008414: 
+	 ucMemType = 0x%x
+
+0000842c: 		Find DRAM MemModuelId=%d, Density=0x%x
+
+00008458: 
+ Get Mem Frequency per PState
+
+000088dc: 	MemClkFreq = %d MHz
+
+000088f4: 	Program DRAM timing per memory clock
+
+0000891c: 	
+ PatchMCSetting
+
+00008930: 	NumOfMemPstates=%d.
+
+0000894c: 	Current Memory P-state: %d
+
+0000896c: 	Current Memory Speed =0x%x
+
+0000898c: 	 Program SKU G6 PLL golden settings 
+
+000089b4:  	 End of program SKU G6 PLL golden settings 
+
+00008a0a: @P
+	Override DataScrambleEn: %d
+
+00008a2c: 
+	Override AddrTweakTMZEn: 0x%x
+
+00008a50: 
+	Override Data Encryption (DataEncrEn): %d
+
+00008a80: 
+	Override Force Encryption (ForceEncrEn): %d
+
+00008ab0: 
+	Override UMC Key 0 Enable: %d
+
+00008ad4: 
+	Override DisDatMSK: %d
+
+00008c60: 
+	Override DisAddrTweak: %d
+
+00008c80: 
+	TSME Mode Enabled
+
+00008c98: 
+	TSME Mode Disabled
+
+00008cb0: 
+	Override AutoCal: %d
+
+00008cc8: 
+Initialize SDP Interface
+
+00008ce4: Mem Phase 1 End
+
+0000906c: 
+AGESA MEM - Multi-Die - DRAM Map Sync
+
+00009094: 
+Synchronize Mem Size for each channel across all Dies.
+
+000090d0: 	MCM Info
+
+000090dc: 		SocketCount : %d
+
+000090f0: 		Socket ID : %d
+
+00009104: 		Dies per Socket : %d
+
+0000911c: 		Die Count : %d
+
+00009130: 		Die ID : %d
+
+00009148: FALSE
+00009150: 		Local Master: %s
+
+00009164: 		System Master: %s
+
+0000917c: 
+Running on System Master. Retreiving Data from Slaves
+
+000091b4: 	Master Memory:
+
+000091c8: 		Channel %d Memory Size : %08x
+
+000091ec: 	Slave %d
+
+000091f8: 		Slave Socket ID : %d
+
+00009210: 		Slave Die ID : %d
+
+00009228: 		Sending Combined Table back to Slaves:
+
+00009254: 			%08x %08x
+			%08x %08x
+			%08x %08x
+			%08x
+
+
+0000928c: 			%08x %08x
+			
+
+
+000092a0: 
+Master retreive each DIMM size from Slaves
+
+000092d0: 	Master:
+
+000092dc: 		Channel %d DIMM %d size : %08x --> NVDIMM
+
+0000930c: 		Channel %d DIMM %d size : %08x
+
+00009608: 	NVDIMM	Start addr	Size
+
+00009638: 
+[ERROR]: Slave: ABL, Error ASSERT in MemSize1
+
+00009668: 
+[ERROR]: Slave: ABL, Error ASSERT in MemSize2
+
+00009698: 
+[ERROR]: Slave: ABL, Error ASSERT in MemSize3
+
+000096c8: 
+Sync Disabled - Gathering Size Data
+
+000096f0: 	Memory:
+
+000099ac: 
+AGESA MEM - Multi-Die - DRAM Speed Sync
+
+000099d8: 
+Synchronize Mem Speed for each channel across all Dies.
+
+00009a14: 
+Running on System Master. Retreiving Slave UMC speed data
+
+00009a50: 		Master Channel %d Memory Speed : %d
+
+00009a78: 		Slave %d Channel %d Memory Speed : %d
+
+00009aa4: 		Sending Synchronized Speed back to Slaves: %d
+
+00009adc: 
+[ERROR]: Slave: ABL, Error ASSERT in MemSize1
+
+00009b10: 		Channel %d Memory Speed : %d
+
+00009f78: ~R F%d_%03x
+00009f84:  = %x
+
+00009f8c: ~R SMN_UMC%d_CH%d % 6x [%d:%d] = %x
+
+00009fb4: ~R SMN_UMC%d_CTRL%d % 6x [%d:%d] = %x
+
+00009fdc: RegIndex %d out of range. BF Enum = %d
+
+0000a014: ~R        Subfield [%d:%d] = %x
+
+0000a038: 		Undefined BF enum: %x
+
+0000a468: CPU Family Model Stepping: 0x%x
+
+0000a48c: Fail to get boot mode
+
+0000a4a8: SMB Addr: 0x20 = %x
+
+0000a4c0: Board Config ID/Rev value: 0x%x , SMBUS address: 0x4e
+
+0000a4f8: Fail to access AMD reference board SMBUS BoardID device!!!
+
+0000a538: Native Mode- Soc Vid: 0x%x
+
+0000a554: Mos Mode- Soc Vid: 0x%x
+
+0000a570: Index: 0x%x, VID_1:0x%x, VID_2:0x%x
+
+0000a598: VMEMP VID override Index: 0x%x, VID_1:0x%x, VID_2:0x%x
+
+0000a8cc: 	[exing] DctEnValue: 0x%04x
+
+0000a8ec: 	[exing] AutoCal: 0x%04x
+
+0000a90a: fter EnableMemPstate: %d
+
+0000a924: 
+	Enable EDC: %d
+
+0000a938: 
+	Enable EDC Relpay: %d
+
+0000a954: 
+	Enable CABI: %d
+
+0000a968: 
+	Enable DBI: %d
+
+0000a97c: 
+	[APCB] Bank Group Swap = %d
+
+0000a99c: 
+	[APCB] Address Hash Bank = %d
+
+0000a9c0: 
+	[APCB] Power Down Enable = %d
+
+0000a9e4: 
+	[APCB] PowerDown Phy Power Save Disable = %d
+
+0000aa14: 
+	[APCB] DRAM Phy Power Saving = %d
+
+0000aa3c: 
+	[APCB] DRAM All Clocks on = %d
+
+0000aa60: 
+	[APCB] DRAM All CKE's Enabled on = %d
+
+0000aa8c: 
+	[APCB] DRAM All CS's Enabled = %d
+
+0000ae08: UMC-XOR %s
+
+0000af40:   Enter MemNGetTargetSpeedG6
+
+0000af64: 	ABL OPN Memory Speed Limit = %dMHz
+
+0000af8c: 	ABL OPN GFX Clock Value Limit = %dMHz
+
+0000afb4: 	ABL OPN GFX Clock Value Limit Auto
+
+0000afdc: 
+ Core number = %x
+
+0000aff0: 	ABL Memory Speed Limit = %dMHz
+
+0000b014: 	User MemClk Setting: %dMHz
+
+0000b034:   Exit MemNGetTargetSpeedG6
+
+0000b24c: 	 DataScrambleEn: %d
+

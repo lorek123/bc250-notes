@@ -1,0 +1,717 @@
+00000610: 	Synchronize debug data from slaves at debug sync point %04x
+
+00000650: 	MCM Info
+
+0000065c: 		SocketCount : %d
+
+00000670: 		Socket ID : %d
+
+00000684: 		Dies per Socket : %d
+
+0000069c: 		Die Count : %d
+
+000006b0: 		Die ID : %d
+
+000006c8: FALSE
+000006d0: 		Local Master: %s
+
+000006e4: 		System Master: %s
+
+000006fc: 
+Debug Sync
+
+00000710: 
+Master: Debug Sync - Get Data from slaves
+
+0000073c: 	Error Slave comm
+
+00000758: 		Slave %d, TP: %02x 
+
+00000770: 
+Slave: Debug Sync
+
+00000784: 
+Slave: Debug Sync - Send data to Master
+
+000007b0: 		Debug Sync Disabled - Die count < = 1
+
+00000888: 	Flush Error Reporting Log
+
+000009e0: 
+Report New Log Entry
+
+00000a3c: 
+Re-initialize Error Reporting Log 
+
+00000bb4: 	Err Port Disabled
+
+00000bc8: 	Send ABL Error Log
+
+00000be4: 	Error Log transmission start
+
+00000c0c: 	Error Log transmission End
+
+00000c84: 	Error Reporting waiting for ACK
+
+00000ee8: 
+AGESA MEM - Multi-Die - APOB Support
+
+00000f10: 
+Unified APOB Start 
+
+00000f28: 
+Running on System Master. Retreiving APOB Address from Slaves
+
+00000f68: 	Master Memory:
+
+00000f7c: 
+Master: APOB init
+
+00000f90: 
+Master: APOB - Get Data from Master
+
+00000fb8: 		Master: Mem Config buffer Offset: %08x 
+
+00000fe4: 		Master: CCX Map Offset: %08x 
+
+00001008: 		Master: Mem SMBIOS Offset: %08x 
+
+0000102c: 		Master: System Map Offset: %08x 
+
+00001050: 	Slave %d
+
+0000105c: 		Mem Config buffer Offset: %08x 
+
+00001080: 		CCX Map Offset: %08x 
+
+0000109c: 	AGESA Unified APOB Size : %04x
+
+000010c0: 	Master: Pass unified APOB to PSP BL
+
+000010e8: 
+Slave: APOB init
+
+000010fc: 
+Slave: APOB - Send Data to Master
+
+00001124: 
+Slave: APOB Data Set 2- Send Data to Master
+
+00001154: 		APOB Sync Disabled - Die count < = 1
+
+000011b4: 	Error Reporting waiting for ACK
+
+00001324: REG28_%x
+
+00001330: REG40_%x
+
+00001394: 
+Master: ABL, Broadcast Data to Slaves from Master
+
+00001454: 
+[ERROR]: Master: ABL, Error, this is not the master
+
+00001490: 
+[ERROR]: Master: ABL, Error, no sync function found
+
+00001510: 
+Master: Get Data from Slaves
+
+00001604: 
+[ERROR]: Slave: ABL, Error, No sync function found
+
+0000169c: 
+[ERROR]: Slave: ABL, Error, invalid slave in broadcast
+
+000016d8: 
+Slave: ABL, Get Broadcast Data from Master
+
+0000176c: 
+[ERROR]: Slave: ABL, Error, invalid slave n send data
+
+000017a4: 
+Slave: ABL, Send Data to Master
+
+00001a44: 
+AmdDfAfterTraining Start
+
+00001a64: 	[exing]DF::FuseDisable_CS0.ComponentDisable = 1 : 0x%08x
+
+00001aa0: 	[exing]DF::FuseDisable_CS1.ComponentDisable = 1 : 0x%08x
+
+00001adc: 	[exing]DF::FuseDisable_CS2.ComponentDisable = 1 : 0x%08x
+
+00001b18: 	[exing]DF::FuseDisable_CS3.ComponentDisable = 1 : 0x%08x
+
+00001b54: 	[exing]DF::FuseDisable_CS4.ComponentDisable = 1 : 0x%08x
+
+00001b90: 	[exing]DF::FuseDisable_CS5.ComponentDisable = 1 : 0x%08x
+
+00001bcc: 	[exing]DF::FuseDisable_CS6.ComponentDisable = 1 : 0x%08x
+
+00001c08: 	[exing]DF::FuseDisable_CS7.ComponentDisable = 1 : 0x%08x
+
+00001c44: 
+DfMbatInitialization
+
+00001c5c: 
+DfPieInitialization
+
+00001c74: 
+DfTcdxInitialization
+
+00001c8c: 
+DfCommonInitialization
+
+00001ca8: 
+DfAddressMapInitialization
+
+00001cc8: 
+AmdDfAfterTraining Exit
+
+00002228: 	Phase 3 Initialization - UMC Feature initialization 
+
+00002260: MEM PARAMS:
+
+00002270: 	AGESA BL Heap Size : %04x
+
+0000228c: 	ChannelIntlv : %d
+
+000022a0: 	PowerDown : %d
+
+000022b4: 	Parity : %d
+
+000022c4: 	BankSwizzle : %d
+
+000022d8: 	MemClr : %d
+
+000022e8: 		 AgesaBootMode: %d
+
+0000230c: 	NumOfMemPstates = 1, copy data to apob in phase 3
+
+000024c0: 
+Synchronize All Slave Dies with the Master.
+
+000024f0: 	MCM Info
+
+000024fc: 		SocketCount : %d
+
+00002510: 		Socket ID : %d
+
+00002524: 		Dies per Socket : %d
+
+0000253c: 		Die Count : %d
+
+00002550: 		Die ID : %d
+
+00002568: FALSE
+00002570: 		Local Master: %s
+
+00002584: 		System Master: %s
+
+0000259c: 
+System Master waiting on callback from slaves.
+
+000025d0: 	Slave %d
+
+000025dc: 		Slave ID : %d
+
+000025f0: 		Slave Socket ID : %d
+
+00002608: 		Slave Die ID : %d
+
+00002620: 
+Fatal error, received from ABL Get data.
+
+0000264c: 
+All Slave Dies synchronized  with the Master.
+
+00002680: 		Sync All Dies Disabled - Die count < = 1
+
+00002824: 
+	Parent APCB parameter disabled: Token %04x, Timepoint %04x
+
+00002868: 
+	Get internal APCB parameter: Token %04x, Timepoint %04x
+
+00002cf8: 
+	[MEM_CONF] Override Memory Clock Speed: %04dMHz
+
+00002d2c: 
+	Override Memory clock: 0x%x
+
+00002d50: 	[MEM_CONF] Override Memory Timing tCL:    %02d
+
+00002d84: 	[MEM_CONF] Override Memory Timing tRAS:   %02d
+
+00002db8: 	[MEM_CONF] Override Memory Timing tRCDRD: %02d
+
+00002dec: 	[MEM_CONF] Override Memory Timing tRCDWR: %02d
+
+00002e20: 	[MEM_CONF] Override Memory Timing tRCAb:  %02d
+
+00002e54: 	[MEM_CONF] Override Memory Timing tRCPb:  %02d
+
+00002e88: 	[MEM_CONF] Override Memory Timing tRPAb:  %02d
+
+00002ebc: 	[MEM_CONF] Override Memory Timing tRPPb:  %02d
+
+00002ef0: 	[MEM_CONF] Override Memory Timing tRRDS:  %d
+
+00002f20: 	[MEM_CONF] Override Memory Timing tRRDL:  %02d
+
+00002f54: 	[MEM_CONF] Override Memory Timing tRTP:   %02d
+
+00002f88: 	[MEM_CONF] Override Memory Timing tFAW:   %02d
+
+00002fbc: 	[MEM_CONF] Override Memory Timing tREF:   %04d
+
+00002ff0: 	[MEM_CONF] Override Memory Timing RFCPb:  %04d
+
+00003024: 	[MEM_CONF] Override Memory Timing tRFC:   %04d
+
+00003058: 
+	Override TCL: %d
+
+0000306c: 
+	Override Trcdrd: %d
+
+00003084: 
+	Override Trcdwr: %d
+
+000032dc: 
+	Override Tras: %d
+
+000032f4: 
+	Override TrpAb: %d
+
+0000330c: 
+	Override TrpPb: %d
+
+00003324: 
+	Override TrcAb: %d
+
+0000333c: 
+	Override TrcPb: %d
+
+00003354: 
+	Override TrrdL: %d
+
+0000336c: 
+	Override TrrdS: %d
+
+00003384: 
+	Override Trtp: %d
+
+0000339c: 
+	Override Tfaw: %d
+
+000037bc: 
+	Override UclkDiv1 M0: %d
+
+000037d8: 
+	Override UclkDiv1 M1: %d
+
+000037f4: 
+	Override UclkDiv1 M2: %d
+
+00003810: 
+	Override UclkDiv1 M3: %d
+
+0000382c: 
+	Override TwtrL: %d
+
+00003844: 
+	Override TwtrS: %d
+
+0000385c: 
+	Override Tcksrx: 0x%x
+
+00003878: 
+	Override Tcksre: 0x%x
+
+00003894: 
+	Override Tpd: 0x%x
+
+000038ac: 
+	Override BFDisDynAdrTri: %d
+
+000038cc: 
+	Override CmdThrottleMode Control (OdtsCmdThrotEn): %d
+
+00003908: 
+	Override CmdThrottleMode (OdtsCmdThrotCyc): %d
+
+0000393c: 
+	Override Write CRC Enable (WrCrcEn): %d
+
+00003968: 
+	Override MEM Hardware Hisrory (EccHardwareHistoryEn): %d
+
+000039a4: 
+	Override Command Parity En (CmdParEn): %d
+
+000039d4: 
+	Override RCD Parity (RDimmParEn): %d
+
+000039fc: 
+	Override DBI (WrDbiEn): %d
+
+000042a4: 
+	Override APCB_TOKEN_CBS_DBG_MEM_DIAG_HYBRID_ALLBANK_CTL: %d
+
+000048dc: 
+	Override APCB_TOKEN_CBS_DBG_MEM_DIAG_REF_AB_INS_PERD: %d
+
+00004918: 
+	Override TwrwrSc: %d
+
+00004930: 
+	Override TwrwrSd: %d
+
+00004948: 
+	Override TwrwrDd: %d
+
+00004960: 
+	Override TrdrdSc: %d
+
+00004978: 
+	Override TrdrdSd: %d
+
+00004990: 
+	Override TrdrdDd: %d
+
+000049a8: 
+	Override Trdwr: %d
+
+000049c0: 
+	Override Twrrd: %d
+
+000049d8: 
+	Override Power Down Enable: %d
+
+000049fc: 
+	Override Power Down Mode: %d
+
+00004c38: 
+	Override Power Down Delay: %d
+
+00004c5c: 
+	Override Aggressive Power Down Enable: %d
+
+00004c8c: 
+	Override Aggressive Power Down Delay: %d
+
+00004cb8: 
+	Additional CAS-CAS Delay Cycles: %d
+
+00004ce0: 
+	Additional Read to Write Turnaround Cycles: %d
+
+00004d14: 
+	Override OnDimmTemperatureSensor(OdtsEn): %d
+
+00004fb4: 
+APCB Config parameter %04x mapped to CBS token %04x
+
+00004fec: 
+Get config parameter: token %04x, timepoint %04x
+
+00005020: 
+Get config parameter from default: token %04x, timepoint %04x
+
+00005474: 
+		Initializing APCB parameters for Type[%d]...
+
+000054a8: 
+		Type[%d], Token[0x%x] = 
+00005590: 
+		ToSearch: 	GroupId : 0x%04X,  TypeId : 0x%04X
+000055c8: 		Found type id match!
+
+00005708: Begin PCI Address Map init
+
+00005724: PCI Address Map complete
+
+00005740: Begin Memory map init
+
+00005758: Memory map init complete
+
+000057b4: Begin DF common register init
+
+000057e0: DF common register init complete
+
+000059c0:     ApcbInfo->UmaSize = %lx
+
+00005c6c: DctCount != MAX_CHANNELS_PER_DIE
+
+00005c90: k %x, CurrentChannelSize %x
+
+0000655c: New DfMemoryMapInitialization
+
+00006580: 	[MEM_CONF] Override Apcb.UmaSize :  0x%lx
+
+000065ac: 	[MEM_CONF] Save Memory Timing UMA_SIZE  :  0x%02x
+
+000065e0: 	[MEM_CONF] Get Memory Timing Signature  :  0x%04x
+
+00006614: APCB$ABLCMSBWDTFCHKESIGE	[MEM_CONF] Save Memory Timing Signature :  0x%04x
+
+00006660: 	[MEM_CONF] Save Memory Timing Checksum  :  0x%02x
+
+00006694: Enabled DCTCount: %d
+
+000066ac: APCB Params:
+    BottomOfIO (DramHoleAddress): 0x%x_0000
+
+000066ec:  not 
+000066f4:     ChanIntlv%srequested
+
+00006710:     DieIntlv%srequested
+
+0000672c:     SockIntlv%srequested
+
+00006748:     C6AreaDistribution%srequested
+
+0000676c: Unknown
+00006774:     IntlvSz requested: %s
+
+00006790: 256 bytes
+0000679c: 512 bytes
+000067b8:     UMA is%s above 4G
+
+000067d0: specified
+000067dc:     UMA size is %s (requested 0x%lx)
+
+00006828: 128MB
+00006834: 256MB
+00006840: 512MB
+00006848: unknown
+00006850:     UMA alignment %s requested
+
+00006870:     UMA Version is %s
+
+00006888:     UMA Display Resolution is %s
+
+000068b0: Legacy
+000068b8: Non Legacy
+000068c4: Hybrid Secure
+000068d4: 1920x1080 and below
+000068e8: 2560x1600
+000068f4: 3840x2160
+00006900: Modified bottom of IO to be used: 0x%x_0000
+
+00006d20: RawChannelSize: Socket %d Die %d Channel %d Size 0x%08x
+
+00006d5c: SystemTotalSize 0x%08x_0000
+
+00006d80: Channel interleaving enabled on socket %d die %d
+
+00006db4: interleaving value=0x%x, LeftOver=0x%x, LargerChannel=0x%x
+
+00006df0: Channel interleaving total size 0x%08x on socket %d die %d
+
+00006e2c: ValidCsPairs %d ValidMasterPairs01 %d
+
+00006e54: Channel interleaving left over size 0x%08x on socket %d die %d
+
+00006e94: Channel interleaving disabled on socket %d die %d
+
+00006ec8: ValidMasterPairs02=0x%x
+
+000072c8: DramMap[%d].MapLimit.Value=0x%x
+
+000072ec: DramMap[%d].MapBase.Value=0x%x
+
+00007310: RegionTop (%d): 0x%08x
+
+00007330: MagicInfo[%d].Size:       0x%08x_0000
+
+00007358: MagicInfo[%d].ID:         %d
+
+00007378: MagicInfo[%d].MagicIndex: %d
+
+00007398: MagicInfo[%d].TargetDie:  %d
+
+000073b8: MagicBaseAddr[%d].BaseAddr:       0x%08x (0x%lx)
+
+000073f0: MagicLimitAddr[%d].LimitAddr:     0x%08x (0x%lx)
+
+00007424: MagicOffset[%d].HiAddrOffsetEn:   %d
+
+0000744c: MagicOffset[%d].HiAddrOffset:     0x%08x (0x%lx)
+
+00007480: MagicAddrCfg[%d].AddrRngId:       %d
+
+000074a8: MagicAddrCfg[%d].DstFabricID:     %d
+
+000078c0: MagicRegions: %d MagicMapIndex: %d
+
+000078e8: FrameBufferSize: 0x%lx
+
+00007900: FrameBufferSize set to 0. Non-APU
+
+00007924: ValidMasterPairs:       %d
+
+00007940: DramMap[%d].MapBase.AddrRngVal:       %d
+
+0000796c: DramMap[%d].MapBase.LgcyMmioHoleEn:   %d
+
+00007998: DramMap[%d].MapBase.IntLvNumChan:     %d
+
+000079c4: DramMap[%d].MapBase.IntLvAddrSel:     %d
+
+000079f0: DramMap[%d].MapBase.DramBaseAddr:     0x%08x_000_0000
+
+00007a28: DramMap[%d].MapBase:  0x%08x
+
+00007a48: DramMap[%d].MapLimit.DstFabricID:     %d
+
+00007a74: DramMap[%d].MapLimit.IntLvNumSockets: %d
+
+00007aa0: DramMap[%d].MapLimit.IntLvNumDies:    %d
+
+00007acc: DramMap[%d].MapLimit.DramLimitAddr:   0x%08x_000_0000
+
+00007b04: DramMap[%d].MapLimit: 0x%08x
+
+00007b24: DramMapHoles[%d]:  0x%08x_0000
+
+00007b44: SystemHoleCount: %d
+
+00007b5c: AMD_MEM_MAP_HANDLE: RequestBufferSize: %d (0x%x)
+
+00007b90: SystemMap: TopOfSystemMemory 0x%lx
+
+00007bb4: SystemMap: NumberOfHoles %d
+
+00007fb4: SystemMap: HoleInfo[%d]: Type: %s
+
+00007fd8: SystemMap: HoleInfo[%d]: Base: 0x%0lx
+
+00008000: SystemMap: HoleInfo[%d]: Size: 0x%0lx
+
+00008028: MP3MemReserved
+00008038: MP3BaseAddrHi: 0x%08x
+
+00008050: MP3BaseAddrLo: 0x%08x
+
+00008068: FrameBufferBase: 0x%lx
+
+00008080: UMA Size Calc.: SystemMap->HoleInfo[HoleIndex].Base = 0x%lx
+
+000080c0: Unknown MemoryHoleTypes
+000080d8: RCC_CONFIG_MEMSIZE is %x
+
+000080f8: MMMC_VM_FB_OFFSET is %x
+
+00008114: MMMC_VM_FB_LOCATION_BASE is %x
+
+00008134: Swap UMA and MMIO entries
+
+00008394: Swap MP3 and MMIO entries
+
+000083b0: PrivilegedDRAM
+0000857c: Begin DF Pie init
+
+00008594: DF Pie init complete
+
+0000869c: MapBaseValue=0x%x
+
+000086b0: DramLimitAddr=0x%x
+
+000086c4: RawLimit=0x%x
+
+00008700: Begin DF TCDX init
+
+00008718: DF TCDX init complete
+
+00008cf8: DieType: %d  SysConfig:0x%0x
+
+00008d84: GetUmaAlignmentMask: 0x%lx
+
+00008fe4: 
+[TP:%04x]
+
+00009050: ASSERT on File[%x] Line[%x]
+
+000090f4: 
+#BUFFER  OVERFLOW#
+
+000094dc: PspBootRomServices:DiesPerSocket DieNum: %d
+
+00009524: PspBootRomServices:EnabledCoreCountOnDie: %d
+
+00009620: FALSE
+0000962c: PspBootRomServices:PhysicalCoreComplexCount: %d
+
+00009664: PspBootRomServices:PhysicalCoreCount: %d
+
+00009690: PspBootRomServices:PhysComplex: %d
+
+000096b4: PspBootRomServices:PhysCore: %d
+
+0000972c: PspBootRomServices:LogicalCoresPerPhysicalComplex[%d]: %d
+
+00009768: PspBootRomServices:PhysCcxEnableMap: 0x%0x
+
+00009810: PspBootRomServices:Logical2PhysicalCoreMapping
+
+00009840: PspBootRomServices:[%d].CoreComplex: %d
+
+0000986c: PspBootRomServices:[%d].Core: %d
+
+00009890: PspBootRomServices:PhysCoreEnableMap: 0x%0x
+
+000098d4: PspBootRomServices:PhysDieId: %d
+
+0000990c: PspBootRomServices:SocketId: %d
+
+00009948: PspBootRomServices:SystemDieCount: %d
+
+00009984: PspBootRomServices:SystemSocketCount: %d
+
+000099e0: FALSE
+000099e8: PspBootRomServices:IsSecure: %s  (SecurityState: %d)
+
+00009abc: 	~SMN RI F%xx%x_x[%x]
+00009ad8: 	~SMN RI Data32: 0x%08x
+
+00009af4: 	~SMN RI Data32Hi: 0x%08x
+
+00009bac: 	
+~SMN WI F%xx%x_x[%x] = 0x%0x
+
+00009bcc: 	~SMN WI Data32: 0x%08x
+
+00009bec: 	~SMN WI Data32Hi: 0x%08x
+
+00009c88: 	
+~SMN R [0x%0x]
+00009ca4: 	 0x%02x (8b)
+
+00009cb4: 	 0x%04x (16b)
+
+00009cc4: 	 0x%08x (32b)
+
+00009d54: 	
+~SMN BW [0x%0x] = 0x%0x
+
+00009d70: 	
+~SMN W [0x%0x] = 0x%0x
+
+00009f6c: 
+ABL3 Loaded
+
+00009f80: ABL Version : %x
+
+00009f94: ABL3 __stack_chk_guard = %08x
+
+00009fc0: 
+Mem Phase 3 End
+
+00009fd4: 
+[ERROR]: ABL 3 - AGESA FATAL/ERROR detected
+
+0000a170: CAR GDDR6 DRAM Initialization - Phase 3
+

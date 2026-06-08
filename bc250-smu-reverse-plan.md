@@ -212,10 +212,42 @@ modded BIOS has encryption enabled for the SMU code section.
 
 **Actionable alternatives:**
 
-2.A **Find an unencrypted SMU firmware**: Obtain an early BC-250 BIOS (P1.00 or
-P2.00) or a Renoir/Cezanne BIOS and check if the type 0x08 blob has lower
-entropy (< 6 b/b). A Renoir SMU firmware would have the same ARM architecture
-and similar mailbox protocol.
+### Phase 2.D — PSP ABL analysis (COMPLETED 2026-06-08)
+
+psptool (`pip install psptool`) successfully extracted and decompressed the PSP
+ABL (AGESA Boot Loader) blobs from Robin5.00. These run on the PSP (Cortex-A5)
+and use a PSP→SMU mailbox via `svc #0x28`.
+
+**PSPSMC message IDs decoded from ABL1 + ABL4:**
+
+| Message ID | Name | Source |
+|---|---|---|
+| 0x07 | PSPSMC_MSG_SwitchToStartupDfPstate | ABL4 `GnbSmuPStateChangeCAR` |
+| 0x08 | PSPSMC_MSG_QueryNumberOfDfPstates | ABL1 `GnbSmuGetNumOfDfPstatesCAR` |
+| 0x09 | PSPSMC_MSG_ConfigSocRail | ABL1 `GnbSmuInitAblCAR` |
+| 0x0A | PSPSMC_MSG_QueryMemFreqOfDfPstate | ABL1 `GnbSmuGetMemFreqOfDfPstateCAR` |
+| 0x0B | PSPSMC_MSG_ChangeGfxMode | ABL1 `GnbSmuRequestChangeGfxModeCAR` |
+| 0x0D | PSPSMC_MSG_RequestMemoryTraining | ABL4 `GnbSmuSwitchToMemTrainingPstateCAR` |
+| **0x0E** | **PSPSMC_MSG_SetupFclkPll** | **ABL1 `GnbSmuInitAblCAR`** |
+| **0x0F** | **PSPSMC_MSG_SetupUclkPll** | **ABL1 `GnbSmuInitAblCAR`** |
+
+**Critical finding for Phase 3**: FCLK (SetupFclkPll) and UCLK/MEMCLK
+(SetupUclkPll) setup uses the **PSP→SMU PSPSMC interface** (SVC #0x28 from PSP
+core). This is a separate, privileged mailbox — NOT the user-accessible Q0–Q4
+interface. The PSPSMC interface uses different registers and is only accessible
+from the PSP firmware, not from Linux userspace.
+
+This means FCLK/MEMCLK runtime control via the user-accessible Q0–Q4 mailbox
+may not exist. The PSP does FCLK/UCLK setup once at boot via PSPSMC; any
+runtime control would need to be through the user mailbox Q0/Q3, and no
+such command has been found. Phase 3 must verify this via Q4:0x0A ("freq_op1")
+testing or unencrypted SMU firmware analysis.
+
+Extracted blobs saved to `smu/abl/` (cleaned up names).
+
+2.A **Find an unencrypted SMU firmware**: BC-250 v2.00 also encrypted. A
+Renoir/Cezanne BIOS may have unencrypted SMU firmware for analyzing the Q0–Q4
+user mailbox dispatch table and secure access gate logic.
 
 2.B **Cleartext analysis**: The 128 KB cleartext section contains command
 metadata. A systematic read of the dispatch table area (0x15800–0x16000) may
@@ -225,38 +257,45 @@ reveal command ID → handler mapping offsets, even without the code.
 occasionally enabled firmware decryption. Monitor AMD PSP research; not
 actionable today.
 
-Original Phase 2 goals that are still reachable via 2.A:
-- Mailbox dispatch table: indexed by command ID, each entry is a function pointer
-- Secure access gate: what flag Q3 0x27/0x2A–0x2F checks
-- FCLK/MEMCLK command handlers: search for DRAM clock register writes
-- Cross-reference with `smu_v11_8_ppsmc.h` / `smu_v11_8_pmfw.h`
-
-DELIVERABLE: Ghidra project + annotated function list for the SMU firmware.
+DELIVERABLE: PSPSMC message table documented (done). SMU Q0–Q4 dispatch table
+still blocked on unencrypted SMU firmware.
 
 ---
 
 ## Phase 3 — FCLK/MEMCLK control
 
+**STATUS: Updated with ABL findings (2026-06-08). FCLK/UCLK setup confirmed
+at PSP→SMU level (PSPSMC 0x0E/0x0F). User-accessible Q0–Q4 equivalent unknown.**
+
 The SMU metrics table exposes `MemclkFrequency` and `SocclkFrequency` but no
-set command has been mapped. This is a high-value target: GDDR6 memory
-bandwidth directly affects GPU compute throughput.
+set command has been mapped in Q0–Q4. The PSP ABL analysis confirms the SMU
+firmware has FCLK/UCLK PLL setup capability (PSPSMC_MSG_SetupFclkPll/UclkPll)
+but these are privileged PSP-only messages.
 
-3.1 Search the Ghidra output for register writes to the UMCCH (Unified Memory
-Controller Channel) or DF (Data Fabric) address space that alter FCLK.
+3.1 **Test Q4:0x0A ("freq_op1")**: The library labels this "freq_op1" but it
+has never been safely tested. With the Phase 1 finding that Q4 causes firmware
+hangs, this must wait for Ghidra analysis of an unencrypted SMU firmware (2.A).
 
-3.2 Cross-reference against the `query_vddcr_soc_clock(index)` (Q0:0x11)
-response — if this returns DPM levels, there may be a corresponding set command
-in a nearby command slot.
+3.2 **Cross-reference Q0:0x11** (`query_vddcr_soc_clock(index)`) baseline data:
+From the Phase 0 baseline, DPM[11,12] returned 0xFFFFFFFF — those slots are
+likely FCLK/MEMCLK DPM levels that have no corresponding set command in Q0.
 
-3.3 The DF DPM levels (FCLK) on standard Ryzen are set via PPSMC
-`SetMinDeepSleepDcfclk` / `SetHardMinFclkByFreq`. Check if an equivalent
-exists in Q0 or Q3 by searching for handlers that write to DF registers.
+3.3 **DPM baseline table interpretation** (from Phase 0 snapshot):
+```
+DPM[ 0]: 1254 MHz  ← active SocClk/FCLK
+DPM[ 1]:  500 MHz  ← DPM level 0
+DPM[ 2]:  762 MHz  ← DPM level 1
+DPM[ 3]:  762 MHz  ← DPM level 2 (duplicate?)
+DPM[ 8]:  500 MHz  }
+DPM[ 9]:  738 MHz  } different domain, possibly UCLK/MCLK DPM levels
+DPM[10]: 1000 MHz  }
+DPM[11,12]: 0xFFFF ← not populated (FCLK/MEMCLK PLL not user-settable?)
+```
 
-3.4 If found, test on-device with careful steps: increase FCLK by one DPM
-level at a time, verifying stability with a short GPU compute benchmark
-(e.g. `clinfo` + `ROCm` kernel) before each step.
+3.4 If an unencrypted SMU firmware reveals a Q0/Q3 FCLK set command: test with
+careful steps (one DPM level at a time, stability check via `clinfo` workload).
 
-DELIVERABLE: `FCLK` control command(s) documented and added to the library.
+DELIVERABLE: FCLK control command — pending unencrypted SMU firmware analysis.
 
 ---
 

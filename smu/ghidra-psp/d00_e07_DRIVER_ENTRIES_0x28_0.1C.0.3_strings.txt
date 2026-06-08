@@ -1,0 +1,31 @@
+00000814: gpd.tee.deviceID
+00000839: gpd.tee.apiversion
+00000854: gpd.tee.description
+00000868: AMD-TEE Global Platform API
+00000888: gpd.tee.systemTime.protectionLevel
+000008b3: gpd.tee.TAPersistentTime.protectionLevel
+000008e4: gpd.tee.arith.maxBigIntSize
+00000908: gpd.tee.cryptography.ecc
+00000926: gpd.tee.trustedStorage.antiRollback.protectionLevel
+00000960: )	gpd.tee.trustedos.implementation.version
+00000998: gpd.tee.trustedos.implementation.binaryversion
+000009d3: gpd.tee.trustedos.manufacturer
+000009f2: Advanced Micro Devices
+00000a0b: (	gpd.tee.firmware.implementation.version
+00000a42: gpd.tee.firmware.implementation.binaryversion
+00000a7c: gpd.tee.firmware.manufacturer
+00000a9a: Advanced Micro Devices
+00000ab5: gpd.tee.debug.DLM_available
+00008a94: amd.fw.SecPatchLevel
+00008ab0: amd.ta.version
+00015ebc: false
+00015ec4: 0x%08x
+00015ecc: %08x-%04x-%04x-%02x%02x%02x%02x%02x%02x%02x%02x
+00015efc: 0x%08x:%08x-%04x-%04x-%02x%02x%02x%02x%02x%02x%02x%02x
+000177ce: HMAC Signature Key for signing APOB data
+00017a48: HMAC Signature Key for PSP Data saved in DRAM
+00017a76: Debug Token Key Seed
+00017bb0: 0123456789ABCDEF@0X
+00017bc4: 0123456789abcdef@0x
+00018f64: AES Key for wrapping data
+00018f7e: HMAC Key for wrapping data

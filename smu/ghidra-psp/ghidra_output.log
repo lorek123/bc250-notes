@@ -1,0 +1,124 @@
+openjdk version "21.0.11" 2026-04-21
+OpenJDK Runtime Environment (build 21.0.11+10-1-26.04.2-Ubuntu)
+OpenJDK 64-Bit Server VM (build 21.0.11+10-1-26.04.2-Ubuntu, mixed mode)
+Module manifest file error on line 2 of file: /home/lorek/.config/ghidra/ghidra_11.2.1_PUBLIC/Extensions/GhidraMCP/Module.manifest
+	-> Invalid line encountered: GHIDRA_MODULE_NAME=GhidraMCP
+Module manifest file error on line 3 of file: /home/lorek/.config/ghidra/ghidra_11.2.1_PUBLIC/Extensions/GhidraMCP/Module.manifest
+	-> Invalid line encountered: GHIDRA_MODULE_DESC=An HTTP server plugin for Ghidra
+Module manifest file error on line 2 of file: /home/lorek/.config/ghidra/ghidra_11.2.1_PUBLIC/Extensions/GhidraMCP/Module.manifest
+	-> Invalid line encountered: GHIDRA_MODULE_NAME=GhidraMCP
+Module manifest file error on line 3 of file: /home/lorek/.config/ghidra/ghidra_11.2.1_PUBLIC/Extensions/GhidraMCP/Module.manifest
+	-> Invalid line encountered: GHIDRA_MODULE_DESC=An HTTP server plugin for Ghidra
+INFO  Using log config file: jar:file:/home/lorek/ghidra/Ghidra/Framework/Generic/lib/Generic.jar!/generic.log4j.xml (LoggingInitialization)  
+INFO  Using log file: /home/lorek/ssdt-pst/smu/ghidra-psp/ghidra_analysis.log (LoggingInitialization)  
+INFO  Loading user preferences: /home/lorek/.config/ghidra/ghidra_11.2.1_PUBLIC/preferences (Preferences)  
+INFO  Searching for classes... (ClassSearcher)  
+INFO  Class search complete (2380 ms) (ClassSearcher)  
+INFO  Initializing SSL Context (SSLContextInitializer)  
+INFO  Initializing Random Number Generator... (SecureRandomFactory)  
+INFO  Random Number Generator initialization complete: NativePRNGNonBlocking (SecureRandomFactory)  
+INFO  Trust manager disabled, cacerts have not been set (ApplicationTrustManagerFactory)  
+INFO  Headless startup complete (6623 ms) (AnalyzeHeadless)  
+INFO  Class searcher loaded 57 extension points (18 false positives) (ClassSearcher)  
+INFO  HEADLESS Script Paths:
+    /home/lorek/ghidra/Ghidra/Features/BytePatterns/ghidra_scripts
+    /home/lorek/ghidra/Ghidra/Features/GnuDemangler/ghidra_scripts
+    /home/lorek/ghidra/Ghidra/Debug/Debugger-agent-frida/ghidra_scripts
+    /home/lorek/ghidra/Ghidra/Debug/Debugger-agent-dbgmodel-traceloader/ghidra_scripts
+    /home/lorek/ghidra/Ghidra/Features/MicrosoftCodeAnalyzer/ghidra_scripts
+    /home/lorek/ghidra/Ghidra/Processors/PIC/ghidra_scripts
+    /home/lorek/ghidra/Ghidra/Processors/JVM/ghidra_scripts
+    /home/lorek/ghidra_scripts
+    /home/lorek/ghidra/Ghidra/Debug/Debugger/ghidra_scripts
+    /home/lorek/ghidra/Ghidra/Features/SystemEmulation/ghidra_scripts
+    /home/lorek/ssdt-pst/.agents/skills/ghidra/scripts/ghidra_scripts
+    /home/lorek/ghidra/Ghidra/Features/VersionTracking/ghidra_scripts
+    /home/lorek/ghidra/Ghidra/Features/Base/ghidra_scripts
+    /home/lorek/ghidra/Ghidra/Processors/Atmel/ghidra_scripts
+    /home/lorek/ghidra/Ghidra/Features/FileFormats/ghidra_scripts
+    /home/lorek/ghidra/Ghidra/Features/FunctionID/ghidra_scripts
+    /home/lorek/ghidra/Ghidra/Features/SwiftDemangler/ghidra_scripts
+    /home/lorek/ghidra/Ghidra/Features/Decompiler/ghidra_scripts
+    /home/lorek/ghidra/Ghidra/Features/Jython/ghidra_scripts
+    /home/lorek/ghidra/Ghidra/Features/WildcardAssembler/ghidra_scripts
+    /home/lorek/ghidra/Ghidra/Processors/DATA/ghidra_scripts
+    /home/lorek/ghidra/Ghidra/Debug/Debugger-rmi-trace/ghidra_scripts
+    /home/lorek/ghidra/Ghidra/Features/BSim/ghidra_scripts
+    /home/lorek/ghidra/Ghidra/Processors/8051/ghidra_scripts
+    /home/lorek/ghidra/Ghidra/Features/PDB/ghidra_scripts (HeadlessAnalyzer)  
+INFO  HEADLESS: execution starts (HeadlessAnalyzer)  
+INFO  Creating temporary project: /tmp/ghidra_d00_e12_ABL4~0x34_22_4_6_0_1943757 (HeadlessAnalyzer)  
+INFO  Creating project: /tmp/ghidra_d00_e12_ABL4~0x34_22_4_6_0_1943757 (DefaultProject)  
+INFO  REPORT: Processing input files:  (HeadlessAnalyzer)  
+INFO       project: /tmp/ghidra_d00_e12_ABL4~0x34_22_4_6_0_1943757 (HeadlessAnalyzer)  
+INFO  IMPORTING: file:///home/lorek/ssdt-pst/smu/abl/d00_e12_ABL4~0x34_22.4.6.0 (HeadlessAnalyzer)  
+INFO  Using Loader: Raw Binary (AutoImporter)  
+INFO  Using Language/Compiler: ARM:LE:32:v7:default (AutoImporter)  
+INFO  Using Library Search Path: [., /bin, /lib, /lib64, /lib/x86_64-linux-gnu, /lib/aarch64-linux-gnu, /usr/bin, /usr/lib, /usr/X11R6/bin, /usr/X11R6/lib, /usr/java/packages/lib, /usr/lib/x86_64-linux-gnu/jni, /usr/lib/x86_64-linux-gnu, /usr/lib/jni] (AutoImporter)  
+INFO  IMPORTING: Loaded 0 additional files (HeadlessAnalyzer)  
+INFO  ANALYZING all memory and code: file:///home/lorek/ssdt-pst/smu/abl/d00_e12_ABL4~0x34_22.4.6.0 (HeadlessAnalyzer)  
+WARN  Decompiling 00005de4, pcode error at 00010084: Could not follow disassembly flow into non-existing memory at 00010084 (DecompileCallback)  
+INFO  Packed database cache: /var/tmp/lorek-ghidra/packed-db-cache (PackedDatabaseCache)  
+INFO  Applied data type archive: generic_clib (ApplyDataArchiveAnalyzer)  
+INFO  -----------------------------------------------------
+    ARM Constant Reference Analyzer            2.096 secs
+    ARM Symbol                                 0.002 secs
+    ASCII Strings                              0.719 secs
+    Apply Data Archives                        1.177 secs
+    Call Convention ID                         0.005 secs
+    Call-Fixup Installer                       0.008 secs
+    Create Address Tables                      0.042 secs
+    Create Function                            0.162 secs
+    Data Reference                             0.001 secs
+    Decompiler Switch Analysis                 2.826 secs
+    Demangler GNU                              0.013 secs
+    Disassemble                                1.840 secs
+    Disassemble Entry Points                   0.100 secs
+    Embedded Media                             0.030 secs
+    External Entry References                  0.001 secs
+    Function Start Pre Search                  0.032 secs
+    Function Start Search                      0.245 secs
+    Function Start Search After Code           0.038 secs
+    Function Start Search After Data           0.043 secs
+    Function Start Search delayed - One Time   0.012 secs
+    Non-Returning Functions - Discovered       0.158 secs
+    Reference                                  0.240 secs
+    Shared Return Calls                        0.028 secs
+    Stack                                      1.785 secs
+    Subroutine References                      0.070 secs
+-----------------------------------------------------
+     Total Time   11 secs
+-----------------------------------------------------
+ (AutoAnalysisManager)  
+INFO  REPORT: Analysis succeeded for file: file:///home/lorek/ssdt-pst/smu/abl/d00_e12_ABL4~0x34_22.4.6.0 (HeadlessAnalyzer)  
+INFO  SCRIPT: /home/lorek/ssdt-pst/.agents/skills/ghidra/scripts/ghidra_scripts/ExportAll.java (HeadlessAnalyzer)  
+INFO  ExportAll.java> === Starting comprehensive export === (GhidraScript)  
+INFO  ExportAll.java> Output directory: /home/lorek/ssdt-pst/smu/ghidra-psp (GhidraScript)  
+INFO  ExportAll.java> Program: d00_e12_ABL4~0x34_22.4.6.0 (GhidraScript)  
+INFO  ExportAll.java> Architecture: ARM (GhidraScript)  
+INFO  ExportAll.java>  (GhidraScript)  
+INFO  ExportAll.java> Exporting summary to: d00_e12_ABL4_0x34_22.4.6.0_summary.txt (GhidraScript)  
+INFO  ExportAll.java> Exporting decompiled code to: d00_e12_ABL4_0x34_22.4.6.0_decompiled.c (GhidraScript)  
+WARN  Decompiling 00000000, pcode error at 00000008: Unable to resolve constructor at 00000008 (DecompileCallback)  
+WARN  Decompiling 00000004, pcode error at 00000008: Unable to resolve constructor at 00000008 (DecompileCallback)  
+WARN  Decompiling 0000000c, pcode error at 00000010: Unable to resolve constructor at 00000010 (DecompileCallback)  
+WARN  Decompiling 00000018, pcode error at 00000040: Unable to resolve constructor at 00000040 (DecompileCallback)  
+WARN  Decompiling 0000001c, pcode error at 00000040: Unable to resolve constructor at 00000040 (DecompileCallback)  
+WARN  Decompiling 00002238, pcode error at 00010084: Could not follow disassembly flow into non-existing memory at 00010084 (DecompileCallback)  
+WARN  Decompiling 00003614, pcode error at 00010084: Could not follow disassembly flow into non-existing memory at 00010084 (DecompileCallback)  
+WARN  Decompiling 00005de4, pcode error at 00010084: Could not follow disassembly flow into non-existing memory at 00010084 (DecompileCallback)  
+WARN  Decompiling 00009bc0, pcode error at 00010084: Could not follow disassembly flow into non-existing memory at 00010084 (DecompileCallback)  
+WARN  Decompiling 0000a060, pcode error at 0000a0d2: Could not follow disassembly flow into non-existing memory at 0000a0d2 (DecompileCallback)  
+WARN  Decompiling 0000a060, pcode error at 0000a118: Could not follow disassembly flow into non-existing memory at 0000a118 (DecompileCallback)  
+INFO  ExportAll.java>   Decompiled 81 functions (GhidraScript)  
+INFO  ExportAll.java> Exporting functions to: d00_e12_ABL4_0x34_22.4.6.0_functions.json (GhidraScript)  
+INFO  ExportAll.java>   Exported 83 functions (GhidraScript)  
+INFO  ExportAll.java> Exporting strings to: d00_e12_ABL4_0x34_22.4.6.0_strings.txt (GhidraScript)  
+INFO  ExportAll.java>   Exported 240 strings (GhidraScript)  
+INFO  ExportAll.java> Analyzing interesting patterns... (GhidraScript)  
+INFO  ExportAll.java>  (GhidraScript)  
+INFO  ExportAll.java> === Export complete === (GhidraScript)  
+INFO  ANALYZING changes made by post scripts: file:///home/lorek/ssdt-pst/smu/abl/d00_e12_ABL4~0x34_22.4.6.0 (HeadlessAnalyzer)  
+INFO  REPORT: Post-analysis succeeded for file: file:///home/lorek/ssdt-pst/smu/abl/d00_e12_ABL4~0x34_22.4.6.0 (HeadlessAnalyzer)  
+INFO  REPORT: Save succeeded for: /d00_e12_ABL4~0x34_22.4.6.0 (ghidra_d00_e12_ABL4~0x34_22_4_6_0_1943757:/d00_e12_ABL4~0x34_22.4.6.0) (HeadlessAnalyzer)  
+INFO  REPORT: Import succeeded (HeadlessAnalyzer)  

@@ -1,0 +1,4 @@
+Interesting Functions and Patterns
+===================================
+
+[POTENTIALLY DANGEROUS FUNCTIONS]
