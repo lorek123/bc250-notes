@@ -57,6 +57,7 @@ See [`phase2-pstate-result.md`](phase2-pstate-result.md).
 | `smu/` | SMU baseline/enumeration scripts + results, SMU firmware blobs, PSP ABL extracts, Ghidra output |
 | `acpi-tables/` | Live ACPI dumps (pre-IOMMU): DSDT, SSDT1/2/3, IVRS, SSDT-PST source |
 | `acpi-tables-iommu/` | Same tables captured with IOMMU enabled (adds SSDT3 BC250CST + IVRS) |
+| `vcn-readonly-probe.sh` | Read-only VCN evidence collector (sysfs/debugfs/dmesg; no SMU/PSP traffic) |
 | Scripts | `pstate-apply.sh`, `fixup-iommu-pstate.sh`, `check-iommu-active.sh`, etc. |
 
 ## Hardware summary

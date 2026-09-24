@@ -159,6 +159,27 @@ docs were last touched around March 2026, per the repo metadata we saw.
   The **PSP rejected the firmware load** (non-zero status, zero placement).
   Whole-block VCN power, VCPU execution and ring execution are still
   unproven.
+- **Their firmware candidate is Navi10's.** The `vcn_2_0_3.bin` that the
+  PSP rejected with `0xffff0008` has SHA-256 `a9ec1556…71dbe5`. That is
+  byte-identical to linux-firmware `navi10_vcn.bin` (= `navi12_vcn.bin`).
+  Every firmware type the PSP *accepted* in their runs was a
+  `cyan_skillfish2_*` image. So a rejection of a Navi10-signed image is
+  expected and does not show the VCN hardware is dead. An AMD developer
+  (amd-gfx, 2026-07-31) said VCN was outside the BC-250 product definition
+  and no firmware exists for it.
+- **The driver never asks the SMU to power VCN.** The Cyan PPSMC header
+  (`smu_v11_8_ppsmc.h`) defines no VCN or JPEG message. Renoir, for
+  comparison, has `PowerDownVcn 0xB` / `PowerUpVcn 0xC`, but on Cyan
+  `0xB`/`0xC` are `RequestCorePstate`/`QueryCorePstate`.
+  `cyan_skillfish_ppt_funcs` has no `dpm_set_vcn_enable`, so the stock
+  "VCN power request" returns 0 without sending anything. This explains
+  their `STOCK_CYAN_VCN_POWER_REQUEST_RESULT=SUCCESS_NOOP`. Whether the SMU
+  firmware has a VCN power handler behind one of the unlisted Q0 IDs
+  (0x8, 0x9, 0x10, 0x12, 0x15, 0x1F–0x2B, 0x2D, 0x32, 0x33) is a static
+  question for the plaintext SMU image. **Do not probe those IDs live.**
+- **Read-only data collection:** `vcn-readonly-probe.sh` in this repo
+  records IP-discovery VCN version/harvest bit, cached firmware versions,
+  registered rings, dmesg and vainfo. It sends no SMU/PSP messages.
 - **Workaround:** `MTSistemi/bc250-vaapi` is a VA-API driver that does
   H.264/HEVC encode on compute shaders and decode on the CPU.
 - **Where our work could help:** the now-readable SMU firmware (see
