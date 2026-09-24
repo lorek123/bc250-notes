@@ -5,6 +5,15 @@
 The SSDT-PST table was successfully injected via initrd ACPI override. The
 `acpi_cpufreq` driver loaded and the standard cpufreq sysfs interface is live.
 
+> **Status update 2026-09-24 — 8-core unlock gap.** The DSDT declares
+> `\_PR.P000`–`P00F` (16 processor objects). `SSDT-PST.dsl` only adds
+> `_PCT/_PSS/_PSD` to `P000`–`P00B` (the 12 threads of the stock 6C/12T
+> part). AGESA's SSDT3 `BC250CST` covers the same 12. On a board with the
+> community 8-core unlock (8C/16T), `P00C`–`P00F` would lack P-state
+> objects. Adding four more `Scope (P00x)` lines reusing `PPCT/PPSS/PPSD`
+> should fix it. The `_PSD` domain count may also need review. **Untested**,
+> no unlocked board yet.
+
 ---
 
 ## Kernel log evidence

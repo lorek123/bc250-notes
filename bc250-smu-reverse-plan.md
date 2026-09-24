@@ -13,6 +13,33 @@ plan covers what remains open, why it matters, and how to attack it safely.
 
 ---
 
+## Update 2026-09-24 — community developments
+
+Our own work paused on 2026-06-08 (Phase 2.A exhausted). Since then:
+
+- **Q3 msg `0x98` has been decoded** (rw-r-r-0644/bc250-core-unlock). It
+  writes the constant `0xFF` to an arbitrary SMN address given in ARG0;
+  `arg == 0` hangs the SMU. It is used to set the core-presence mask SMN
+  `0x0115A870` from `0x77` to `0xFF` (8-core unlock). The mask persists
+  across a warm reboot and reverts on a cold boot. Treat `0x98` as
+  **dangerous**: it can write to any SMN register.
+- **Handler-level pseudocode exists in the community** (`msg_q3_98` with
+  `pmfw_queue_read_arg`, `smn_window_write`, `panic_lock_HANGS`). So a
+  readable SMU image or an equivalent dump is available to someone, which
+  contradicts the "no public path" conclusion of Phase 2.A below. The source
+  is undisclosed. Next action: ask in the bc250-collective Discord.
+- **Secure-access gate (Phase 4) has a lead.** `Hexxeh/bc250-efi-core-unlock`
+  says it "unlocks SMU secure access" from an EFI shim before the OS boots.
+  Read its `smu.c` / `unlock.c`. The gate is likely a pre-OS SMU message
+  sequence, not a PSP-signed operation.
+- There is a known race: amdgpu uses the same `0xB8`/`0xBC` SMN index/data
+  pair and the same mailbox. Any tool in `smu/` should issue its sequences
+  atomically (single `setpci` call) or run with amdgpu idle.
+
+See `community-status-2026-09.md` for the full snapshot.
+
+---
+
 ## Current state
 
 The `bc250_smu_oc` library exposes 5 queues:
@@ -37,7 +64,8 @@ The `bc250_smu_oc` library exposes 5 queues:
 
 ### Known gaps
 
-**Secure access group** (Q3: 0x27, 0x2A–0x2F):
+**Secure access group** (Q3: 0x27, 0x2A–0x2F) — *lead as of 2026-09: see
+Hexxeh EFI shim in the update above*:
 Six commands flagged in the source with the comment: *"accessible if some flag
 is passed to SMU at boot from BIOS. Currently we have no idea how to do it."*
 These are likely privileged operations behind a PSP/BIOS-controlled unlock.
@@ -87,6 +115,8 @@ it sets up at init that unlocks CPU boosting is not fully documented.
 - Always monitor temperature during any SMU experiment; stop at 95 °C
 - Keep CH341A programmer + SOIC8 clip on hand for BIOS recovery
 - Never run new SMU commands without first reading back current state
+- **Never send Q3:0x98** in any sweep — arbitrary-address SMN write of
+  `0xFF`; `arg == 0` hangs the SMU (community-decoded, 2026-09).
 - **Never blindly enumerate Q2:0x11+ or Q4** — confirmed to cause permanent
   firmware hang requiring reboot (observed 2026-06-08). Ghidra analysis of
   the handler code is required before probing those ranges.
@@ -315,6 +345,10 @@ DELIVERABLE: FCLK control command — pending unencrypted SMU firmware analysis.
 
 The six locked Q3 commands (0x27, 0x2A–0x2F) need their gate condition found.
 
+4.0 **(New, 2026-09 — do this first.)** Read `Hexxeh/bc250-efi-core-unlock`
+(`smu.c`, `unlock.c`). It claims to unlock SMU secure access pre-OS. Document
+the message sequence and check if it also unlocks Q3 0x27/0x2A–0x2F.
+
 4.1 From the Ghidra analysis (Phase 2), identify what the gate checks:
 - A specific memory-mapped register bit?
 - A PSP-signed message result?
@@ -381,6 +415,7 @@ estimate (which feeds boost decisions).
    untested. This is the lowest-risk entry point to Phase 3.
 
 3. **Is the secure access flag related to the BIOS SVM/IOMMU setting?**
+   (Likely superseded: the EFI shim sets it from pre-OS; see 4.0.)
    Enabling IOMMU changes AGESA state significantly; worth checking if it also
    sets an SMU register the secure group checks.
 
@@ -399,3 +434,6 @@ estimate (which feeds boost decisions).
 - `drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu11_driver_if_cyan_skillfish.h`
   — metrics table structure; VID encoding reference
 - `mothenjoyer69/bc250-documentation/hardware.md` — J2 HDT+ pinout
+- `rw-r-r-0644/bc250-core-unlock` — Q3 0x98 handler decode, 8-core unlock
+- `Hexxeh/bc250-efi-core-unlock` — EFI shim, SMU secure-access unlock
+- `GabriWar/bc250-core-cu-unlock` — Linux-side 0x98 tool, raw register sequence
