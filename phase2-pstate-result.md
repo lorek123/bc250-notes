@@ -11,8 +11,26 @@ The SSDT-PST table was successfully injected via initrd ACPI override. The
 > part). AGESA's SSDT3 `BC250CST` covers the same 12. On a board with the
 > community 8-core unlock (8C/16T), `P00C`–`P00F` would lack P-state
 > objects. Adding four more `Scope (P00x)` lines reusing `PPCT/PPSS/PPSD`
-> should fix it. The `_PSD` domain count may also need review. **Untested**,
+> should fix it. The `_PSD` package can stay as it is (see below). **Untested**,
 > no unlocked board yet.
+>
+> **`_PSD` is a non-issue on this chip.** `PPSD` is
+> `{5, 0, domain=1, SW_ANY (0xFE), NumProcessors=2}`, shared by every CPU.
+> The NumProcessors value is wrong: 12 CPUs sit in domain 1, not 2. But
+> nothing trips over it:
+> - `acpi_processor_preregister_performance()`
+>   (`drivers/acpi/processor_perflib.c`) only checks that every CPU in a
+>   domain reports the *same* NumProcessors and coordination type. Identical
+>   packages pass. Four more scopes returning the same `PPSD` also pass.
+> - `acpi_cpufreq_cpu_init()` then throws the `_PSD` result away on AMD
+>   family < 0x19 with hardware P-states (Zen 2 is family 0x17). It makes a
+>   per-CPU policy with `CPUFREQ_SHARED_TYPE_HW` and prints `overriding BIOS
+>   provided _PSD data`, the line already in our boot log above.
+> - The one exception is booting with `acpi_cpufreq.acpi_pstate_strict=1`.
+>   Then the SW_ANY domain is honoured, and all 12 (or 16) CPUs would share
+>   one policy. Don't use that option. Setting NumProcessors to the real CPU
+>   count, or giving each thread its own domain, would make the table correct
+>   for any consumer.
 
 ---
 
