@@ -143,10 +143,15 @@ docs were last touched around March 2026, per the repo metadata we saw.
    `\_PR.P000`–`\_PR.P00F` (16 processor objects). `SSDT-PST.dsl`, and AGESA's
    IOMMU-mode SSDT3 `BC250CST`, only populate `P000`–`P00B` (12 logical CPUs =
    6C/12T). After an 8-core unlock (8C/16T), CPUs 12–15 would get **no
-   `_PSS/_PCT/_PSD`**. acpi-cpufreq would then either skip them or refuse to
-   load: `_PSD` coordination is inconsistent. Fix: add `P00C`–`P00F` scopes
-   (same `PPCT/PPSS/PPSD`). **Untested.** Check first whether the MADT on an
-   unlocked board enumerates 16 LAPICs.
+   `_PSS/_PCT/_PSD`**, and acpi-cpufreq would not manage them. Fix: add
+   `P00C`–`P00F` scopes that reuse `PPCT/PPSS/PPSD`. The shared `_PSD` is
+   harmless: the kernel ignores it on Zen 2 (see `phase2-pstate-result.md`).
+   **Untested.** Check first whether the MADT on an unlocked board
+   enumerates 16 LAPICs.
+   The PSP is not involved. The PSP ABL blobs we extracted contain no
+   core-mask references. The mask is SMU-owned (SMN `0x0115A870`) and is reset
+   on a cold boot. After the warm reboot, AGESA sees 8 cores, and the static
+   DSDT already declares all 16 processor objects.
 2. **SMU plan Phase 4 (secure-access group)** now has a lead. The Hexxeh EFI
    shim performs a "secure access unlock" from pre-OS. Read its `smu.c` /
    `unlock.c` to find the gate. See `bc250-smu-reverse-plan.md`.
