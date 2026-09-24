@@ -87,8 +87,11 @@ image inspection, patch preparation, and write-ups.
   Bazzite, persist it with dracut `acpi_override`. See
   `phase2-pstate-result.md`. Open: SSDT-PST only covers `\_PR.P000`–`P00B`.
   An 8-core-unlocked board (16 threads) needs `P00C`–`P00F` added.
-- **SMU RE — PAUSED (2026-06-08).** The SMU code is AES-encrypted. The PSPSMC
-  message table was decoded from the PSP ABL. See `bc250-smu-reverse-plan.md`.
+- **SMU RE — UNBLOCKED (2026-09-24).** The June "AES-encrypted" verdict was
+  wrong. The PSP header says `encrypted=0`, and the code is plaintext Xtensa
+  (`smu/smu-xtensa-check.py`). Next: Ghidra (Xtensa LE, base 0), then the
+  queue dispatch tables. The PSPSMC message table was decoded from the PSP
+  ABL. See `bc250-smu-reverse-plan.md`.
   New community leads (Q3 msg `0x98`, EFI-shim "secure access unlock") are
   listed in `community-status-2026-09.md`.
 - `bc250-iommu-fix-plan.md` (the original IOMMU plan referenced above) was

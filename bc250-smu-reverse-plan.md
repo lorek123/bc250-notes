@@ -17,6 +17,10 @@ plan covers what remains open, why it matters, and how to attack it safely.
 
 Our own work paused on 2026-06-08 (Phase 2.A exhausted). Since then:
 
+- **Our SMU blobs are not encrypted** (own re-check, 2026-09-24). The PSP
+  header says `encrypted=0`, and the "ciphertext" region is plaintext Xtensa
+  code. Phase 2 is unblocked. See the Phase 2 status below.
+
 - **Q3 msg `0x98` has been decoded** (rw-r-r-0644/bc250-core-unlock). It
   writes the constant `0xFF` to an arbitrary SMN address given in ARG0;
   `arg == 0` hangs the SMU. It is used to set the core-presence mask SMN
@@ -24,10 +28,8 @@ Our own work paused on 2026-06-08 (Phase 2.A exhausted). Since then:
   across a warm reboot and reverts on a cold boot. Treat `0x98` as
   **dangerous**: it can write to any SMN register.
 - **Handler-level pseudocode exists in the community** (`msg_q3_98` with
-  `pmfw_queue_read_arg`, `smn_window_write`, `panic_lock_HANGS`). So a
-  readable SMU image or an equivalent dump is available to someone, which
-  contradicts the "no public path" conclusion of Phase 2.A below. The source
-  is undisclosed. Next action: ask in the bc250-collective Discord.
+  `pmfw_queue_read_arg`, `smn_window_write`, `panic_lock_HANGS`). This is
+  consistent with the finding above: the firmware was readable all along.
 - **Secure-access gate (Phase 4) has a lead.** `Hexxeh/bc250-efi-core-unlock`
   says it "unlocks SMU secure access" from an EFI shim before the OS boots.
   Read its `smu.c` / `unlock.c`. The gate is likely a pre-OS SMU message
@@ -206,7 +208,33 @@ DELIVERABLE: `smu-enumerate.py` (done); annotated results pending Ghidra.
 
 ## Phase 2 — SMU firmware extraction and Ghidra analysis
 
-**STATUS: BLOCKED — firmware code section is AES-encrypted (2026-06-08).**
+**STATUS: UNBLOCKED (2026-09-24). The "AES-encrypted" conclusion below was
+wrong.** A re-check (`smu/smu-xtensa-check.py`) shows:
+
+- The PSP header of every SMU blob we hold (v2.00, v5.00, and the psptool
+  extract) has `encrypted = 0` (offset 0x18) and `compressed = 0`. The PSP
+  loads the body as-is.
+- The high-entropy region 0x20000–0x3A000 is **plaintext Xtensa code**.
+  It contains about 1,300 `retw.n` (`1d f0`) and about 900 `entry`
+  (`36 xx 0x`) patterns, where random data would give about 2 of each.
+  Capstone 6 linear-decodes ~96% of it as valid Xtensa: `l32r`, `call8`,
+  `memw`, `l32i`/`s32i`… A sample function at body offset 0x2004c is
+  `entry a1,0x20` → an MMIO read-modify-write with `memw` → a polling loop
+  → `retw.n`.
+- Dense Xtensa code (24/16-bit mixed encoding, windowed ABI) simply
+  measures ~7.1–7.3 b/B. Entropy alone was the wrong test. "0 ARM `BX LR`"
+  was the wrong ISA check.
+- The low region (0x00000–0x1C000) holds literal pools, tables and strings.
+  Code references into it with `l32r` (e.g. `l32r a4, 0x1753c`), consistent
+  with a flat image loaded at 0.
+
+This matches the community having handler pseudocode (`msg_q3_98`). Next
+step: load the body in Ghidra as Xtensa LE at base 0, then find the queue
+dispatch tables. Check whether the local Ghidra install ships an Xtensa
+processor module (`ls ~/ghidra/Ghidra/Processors | grep -i xtensa`). If
+not, use the community plugin.
+
+The original (incorrect) analysis is kept below for the record.
 
 ### What we found
 
@@ -219,7 +247,7 @@ has two distinct sections:
 | 0x20000–0x3BFFF | 112 KB | 7.2–7.3 b/b | **AES-encrypted**: actual ARM code section; PSP-fused key, no public decryption path |
 | 0x3C000–0x40200 | ~16 KB | 0.0 b/b | Zero padding |
 
-Key evidence for encryption: 0 BX LR (0x4770) instructions at aligned addresses
+~~Key evidence for encryption~~ (superseded, see status above): 0 BX LR (0x4770) instructions at aligned addresses
 across the entire blob; no compression magic bytes; no valid ARM CM vector table;
 entropy matches AES ciphertext. Decompression attempts (zlib, LZMA) failed.
 
@@ -275,7 +303,22 @@ testing or unencrypted SMU firmware analysis.
 
 Extracted blobs saved to `smu/abl/` (cleaned up names).
 
-2.A **Unencrypted SMU firmware — EXHAUSTED (2026-06-08)**:
+**How the blobs were extracted** (reconstructed 2026-09-24; no script was
+committed):
+```
+pip install psptool            # also needs cffi on some systems
+psptool -E Robin5.00           # list all PSP/BIOS directories + entries
+psptool -X -d 0 -u -o smu/abl Robin5.00   # dir 0, decompress zlib'd entries
+```
+The `dNN_eMM_TYPE~0xTT_version` filenames are psptool's `-X` naming. Only
+**directory 0** (the PSP L1 directory) was saved. The other directories in
+the ROM (BIOS directory, any L2 / secondary PSP directory) were not extracted.
+`Robin5.00` itself is gitignored. psptool's `-c` (decrypt) is irrelevant
+here: it only knows the Zen/Zen+ IKEKs, and no dir-0 entry is encrypted.
+
+2.A **Unencrypted SMU firmware — MOOT (2026-09-24): our own blobs are
+already plaintext.** Original 2026-06-08 survey, based on the same flawed
+entropy test (the other chips' images may be plaintext too):
 - BC-250 v2.00 (earliest available): encrypted (7.0-7.3 b/b)
 - Van Gogh (Steam Deck, AMD official `firmware_binaries` repo): encrypted
 - Renoir v2000a, Cezanne, Mendocino, Picasso: all encrypted or .csbin (8.0 b/b)
@@ -299,8 +342,8 @@ reveal command ID → handler mapping offsets, even without the code.
 occasionally enabled firmware decryption. Monitor AMD PSP research; not
 actionable today.
 
-DELIVERABLE: PSPSMC message table documented (done). SMU Q0–Q4 dispatch table
-still blocked on unencrypted SMU firmware.
+DELIVERABLE: PSPSMC message table documented (done). SMU Q0–Q4 dispatch table:
+now doable. Load the plaintext Xtensa image in Ghidra.
 
 ---
 

@@ -4,8 +4,8 @@ Investigation and fixes for the ASRock BC-250 (AMD Cyan Skillfish / gfx1013),
 a salvaged PS5 APU repurposed as a desktop/compute board.
 
 > **Status (2026-09-24):** IOMMU and P-state fixes validated on our board
-> (June 2026, kernel 6.19.14). SMU reverse engineering is paused: the SMU
-> firmware is encrypted. The community has since shipped 40-CU and 8-core
+> (June 2026, kernel 6.19.14). SMU reverse engineering is unblocked: the SMU
+> firmware turned out to be plaintext Xtensa, not encrypted. The community has since shipped 40-CU and 8-core
 > unlocks and found the ROCm SDMA root cause. See
 > [`community-status-2026-09.md`](community-status-2026-09.md) for the
 > ecosystem snapshot and the open items it creates here.
@@ -85,7 +85,8 @@ See [`phase2-pstate-result.md`](phase2-pstate-result.md).
   space — separate from the standard PPSMC interface. CPU and GPU frequency
   control via this path is largely reverse-engineered by the bc250-collective.
   Our enumeration found Q2:`0x11`+ and all of Q4 hang the SMU until reboot.
-  The SMU code section is AES-encrypted in every image we checked. PSP ABL
+  The SMU firmware is **plaintext Xtensa**. Our June "AES-encrypted" verdict
+  was an entropy misread (corrected 2026-09-24, `smu/smu-xtensa-check.py`). PSP ABL
   analysis shows FCLK/UCLK PLL setup is PSP-only (PSPSMC `0x0E`/`0x0F`).
   Community lead: Q3 msg `0x98` is a debug-leftover "write 0xFF to any SMN
   address" handler, used for the 8-core unlock.

@@ -17,6 +17,8 @@ the text says so. Our own measurements date from 2026-05-31 → 2026-06-08.
 | CPU cores | 6 of 8 | **8-core unlock** works (SMU Q3 msg `0x98`, EFI shim, or patched BIOS) |
 | ROCm | crashes (`ring sdma0 timeout`) | SDMA root cause found: **wrong SDMA microcode**. The navi12 microcode fixes it; most of the ROCm stack runs with kernel patches |
 | IOMMU | **working** via BIOS toggle (our finding) | Community guides **still say "broken, disable in BIOS"** |
+| SMU firmware | "AES-encrypted" (Phase 2 blocked) | **Plaintext Xtensa** — our June entropy test was wrong (own re-check 2026-09-24) |
+| VCN video | not investigated | Kernel skips VCN 2.0.3; PSP rejects firmware load; no fix |
 | SMU secure-access group | gate unknown | EFI shim claims to "unlock SMU secure access" pre-OS. Handler pseudocode for Q3 messages is circulating |
 
 ---
@@ -137,6 +139,34 @@ initialises cleanly with `iommu=pt` (see `iommu-result.md`).
 The write-up PR to `elektricM/amd-bc250-docs` is **still pending**. Those
 docs were last touched around March 2026, per the repo metadata we saw.
 
+## 6b. VCN (hardware video decode/encode)
+
+- **Kernel:** BC-250 (`0x13FE`) is flagged `AMD_APU_IS_CYAN_SKILLFISH2` and
+  goes through IP discovery. In `amdgpu_discovery_set_mm_ip_blocks()`,
+  `UVD_HWIP` `IP_VERSION(2, 0, 3)` is an **explicitly empty case**. No
+  `vcn_v2_0` / `jpeg_v2_0` block is ever registered (checked on torvalds
+  master, 2026-09-24).
+- **Firmware:** linux-firmware has no `cyan_skillfish2_vcn.bin`. The
+  nearest are `navi10_vcn.bin` = `navi12_vcn.bin` (VCN 2.0, byte-identical)
+  and `renoir_vcn.bin` = `green_sardine_vcn.bin` (VCN 2.2). Community docs
+  say the right image is Sony-controlled.
+- **Our PSP dump:** dir 0 of Robin5.00 contains no VCN entry. Neither the
+  SMU nor the PSP driver strings mention VCN/UVD/JPEG. On AMD dGPUs/APUs the
+  VCN ucode ships with the driver and is authenticated by the PSP. It is not
+  normally stored in SPI.
+- **Community RE:** `m2jgh8tg7r-bot/bc250-vcn-linux-research`
+  (Sept 14–23, 2026) got the `vcn_dec`/`vcn_enc*` software rings registered.
+  The **PSP rejected the firmware load** (non-zero status, zero placement).
+  Whole-block VCN power, VCPU execution and ring execution are still
+  unproven.
+- **Workaround:** `MTSistemi/bc250-vaapi` is a VA-API driver that does
+  H.264/HEVC encode on compute shaders and decode on the CPU.
+- **Where our work could help:** the now-readable SMU firmware (see
+  `bc250-smu-reverse-plan.md` Phase 2) should contain the VCN power-up
+  handler, or show it stubbed. That answers the "whole-block VCN power"
+  question without touching hardware. The PSP firmware-load rejection is a
+  signature/key problem that the SPI blobs cannot solve.
+
 ## 7. Consequences for this repo's artifacts
 
 1. **SSDT-PST does not cover an 8-core board.** The DSDT declares
@@ -155,11 +185,10 @@ docs were last touched around March 2026, per the repo metadata we saw.
 2. **SMU plan Phase 4 (secure-access group)** now has a lead. The Hexxeh EFI
    shim performs a "secure access unlock" from pre-OS. Read its `smu.c` /
    `unlock.c` to find the gate. See `bc250-smu-reverse-plan.md`.
-3. **SMU plan Phase 2.A conclusion needs softening.** Someone in the community
-   has handler-level pseudocode for Q3 messages (names like
-   `pmfw_queue_read_arg`, `smn_window_write`). So a readable SMU firmware image,
-   or equivalent, exists somewhere, despite our "all encrypted" survey. The
-   source is not disclosed in the repo; ask in the bc250-collective Discord.
+3. **SMU plan Phase 2 was wrong: the SMU firmware is not encrypted.** Our
+   own re-check (2026-09-24, `smu/smu-xtensa-check.py`) found PSP header
+   `encrypted=0`, and the high-entropy region is plaintext Xtensa code.
+   That explains how the community has handler-level pseudocode.
 4. **Q3 msg `0x98` belongs in the danger list.** It is an arbitrary-address
    SMN write, and `arg == 0` hangs the SMU. Never include it in enumeration
    sweeps.
@@ -179,5 +208,7 @@ docs were last touched around March 2026, per the repo metadata we saw.
 - akandr/bc250 — https://github.com/akandr/bc250
 - kalpakprod/awesome-bc250 — https://github.com/kalpakprod/awesome-bc250
 - MTSistemi/SkillFishOS — https://github.com/MTSistemi/SkillFishOS
+- m2jgh8tg7r-bot/bc250-vcn-linux-research — https://github.com/m2jgh8tg7r-bot/bc250-vcn-linux-research
+- MTSistemi/bc250-vaapi — https://github.com/MTSistemi/bc250-vaapi
 - ROCm/ROCm#6313 — https://github.com/ROCm/ROCm/issues/6313
 - filippor/cyan-skillfish-governor (smu branch) — https://github.com/filippor/cyan-skillfish-governor
