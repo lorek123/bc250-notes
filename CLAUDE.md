@@ -36,6 +36,7 @@ Claude Code cannot do these — stop, print clear instructions, wait for confirm
 - Clearing CMOS (battery pull / jumper).
 - Attaching the CH341A/CH347T programmer + SOIC8 clip.
 - Selecting a non-default GRUB entry at the boot menu.
+- Applying CPU-core / CU unlocks (SMU writes, EFI shim, patched BIOS).
 
 Everything else is yours: log capture/parsing, ACPI table disassembly/edit/
 recompile, initrd override construction, kernel quirk authoring + build, UEFITool
@@ -45,8 +46,9 @@ image inspection, patch preparation, and write-ups.
 
 - Hardware: ASRock BC-250, BIOS P3.00 or P5.00 (record stock vs TuxThePenguin0
   modded).
-- Kernel: 6.18.18 LTS (recommended) or 6.17.11+. **Avoid 6.15.0–6.15.6 and
-  6.17.8–6.17.10** — known broken on BC-250.
+- Kernel: community recommendation as of Sept 2026 is **7.1.x or 6.18 LTS**.
+  **Avoid 6.15.0–6.15.6 and 6.17.8–6.17.10**, which are known broken on
+  BC-250. Our June results were taken on Bazzite 6.19.14-ogc5.1.
 - Tools: `acpica-tools` (`iasl`, `acpidump`), `flashrom` (read-only), `cpio`,
   build-essential, `b4`, kernel `scripts/checkpatch.pl`, UEFITool NE. Verify and
   record versions before starting.
@@ -71,13 +73,38 @@ image inspection, patch preparation, and write-ups.
   document that it's likely AGESA-level and not table/quirk-reachable, and report
   back rather than forcing a dubious fix.
 
-## Root-cause hypothesis status
+## Project status (updated 2026-09-24)
 
-Current working hypothesis for the IOMMU breakage: malformed/incomplete **IVRS**
-ACPI table. This is INFERRED from the symptom pattern (works disabled, crashes
-enabled, passthrough non-functional) and AGESA/AMD-Vi failure history — NOT
-confirmed by teardown. Phase 1 is genuine diagnosis; keep the hypothesis
-falsifiable.
+- **IOMMU — RESOLVED (2026-06-01).** The IVRS hypothesis was falsified in
+  the strong sense: the IVRS was *absent*, not malformed, because the BIOS
+  ships with IOMMU off. Enabling `Advanced → CPU Configuration → SVM Mode +
+  IOMMU` makes AGESA publish a valid IVRS, and AMD-Vi inits cleanly with
+  `iommu=pt`. No quirk or table override is needed. See `iommu-result.md`.
+  Open: full-translation mode (non-`pt`) is untested. Re-validation on 6.18
+  LTS / 7.1.x is pending. Upstream write-up to `elektricM/amd-bc250-docs`
+  is pending. Community docs still say "IOMMU broken".
+- **P-states — RESOLVED (2026-05-31)** via SSDT-PST initrd override. On
+  Bazzite, persist it with dracut `acpi_override`. See
+  `phase2-pstate-result.md`. Open: SSDT-PST only covers `\_PR.P000`–`P00B`.
+  An 8-core-unlocked board (16 threads) needs `P00C`–`P00F` added.
+- **SMU RE — UNBLOCKED (2026-09-24).** The June "AES-encrypted" verdict was
+  wrong. The PSP header says `encrypted=0`, and the code is plaintext Xtensa
+  (`smu/smu-xtensa-check.py`). Next: Ghidra (Xtensa LE, base 0), then the
+  queue dispatch tables. The PSPSMC message table was decoded from the PSP
+  ABL. See `bc250-smu-reverse-plan.md`.
+  New community leads (Q3 msg `0x98`, EFI-shim "secure access unlock") are
+  listed in `community-status-2026-09.md`.
+- `bc250-iommu-fix-plan.md` (the original IOMMU plan referenced above) was
+  never committed to this repo. The IOMMU outcome lives in
+  `iommu-result.md`.
+
+## SMU safety rules (do not violate)
+
+- Never send Q2:`0x11`–`0x3F` or any Q4 command. They hang the SMU until
+  reboot (observed 2026-06-08).
+- Never send Q3:`0x98` except as a deliberate, human-approved action. It
+  writes `0xFF` to an arbitrary SMN address, and `arg == 0` hangs the SMU.
+- CPU VID ≤ 1.325 V. Stop at 95 °C.
 
 ## Dead ends (do not attempt)
 

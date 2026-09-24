@@ -6,6 +6,15 @@ AMD-Vi initialises cleanly. 14 IOMMU groups, GPU isolated in its own group,
 VFIO passthrough ready. Both CPU P-states and IOMMU are active simultaneously
 on the same boot.
 
+> **Status update 2026-09-24:** community guides still say "IOMMU broken —
+> disable in BIOS". They cite *display failures* as well as crashes. Before
+> upstreaming this result, test three things:
+> 1. full DMA translation (drop `iommu=pt`);
+> 2. kernel 6.18 LTS and 7.1.x;
+> 3. stock P3.00/P5.00 and a 40-CU / 8-core-unlocked board.
+>
+> See `community-status-2026-09.md` §6.
+
 ---
 
 ## The fix — two BIOS checkboxes

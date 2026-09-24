@@ -13,6 +13,35 @@ plan covers what remains open, why it matters, and how to attack it safely.
 
 ---
 
+## Update 2026-09-24 — community developments
+
+Our own work paused on 2026-06-08 (Phase 2.A exhausted). Since then:
+
+- **Our SMU blobs are not encrypted** (own re-check, 2026-09-24). The PSP
+  header says `encrypted=0`, and the "ciphertext" region is plaintext Xtensa
+  code. Phase 2 is unblocked. See the Phase 2 status below.
+
+- **Q3 msg `0x98` has been decoded** (rw-r-r-0644/bc250-core-unlock). It
+  writes the constant `0xFF` to an arbitrary SMN address given in ARG0;
+  `arg == 0` hangs the SMU. It is used to set the core-presence mask SMN
+  `0x0115A870` from `0x77` to `0xFF` (8-core unlock). The mask persists
+  across a warm reboot and reverts on a cold boot. Treat `0x98` as
+  **dangerous**: it can write to any SMN register.
+- **Handler-level pseudocode exists in the community** (`msg_q3_98` with
+  `pmfw_queue_read_arg`, `smn_window_write`, `panic_lock_HANGS`). This is
+  consistent with the finding above: the firmware was readable all along.
+- **Secure-access gate (Phase 4) has a lead.** `Hexxeh/bc250-efi-core-unlock`
+  says it "unlocks SMU secure access" from an EFI shim before the OS boots.
+  Read its `smu.c` / `unlock.c`. The gate is likely a pre-OS SMU message
+  sequence, not a PSP-signed operation.
+- There is a known race: amdgpu uses the same `0xB8`/`0xBC` SMN index/data
+  pair and the same mailbox. Any tool in `smu/` should issue its sequences
+  atomically (single `setpci` call) or run with amdgpu idle.
+
+See `community-status-2026-09.md` for the full snapshot.
+
+---
+
 ## Current state
 
 The `bc250_smu_oc` library exposes 5 queues:
@@ -37,7 +66,8 @@ The `bc250_smu_oc` library exposes 5 queues:
 
 ### Known gaps
 
-**Secure access group** (Q3: 0x27, 0x2A–0x2F):
+**Secure access group** (Q3: 0x27, 0x2A–0x2F) — *lead as of 2026-09: see
+Hexxeh EFI shim in the update above*:
 Six commands flagged in the source with the comment: *"accessible if some flag
 is passed to SMU at boot from BIOS. Currently we have no idea how to do it."*
 These are likely privileged operations behind a PSP/BIOS-controlled unlock.
@@ -87,6 +117,8 @@ it sets up at init that unlocks CPU boosting is not fully documented.
 - Always monitor temperature during any SMU experiment; stop at 95 °C
 - Keep CH341A programmer + SOIC8 clip on hand for BIOS recovery
 - Never run new SMU commands without first reading back current state
+- **Never send Q3:0x98** in any sweep — arbitrary-address SMN write of
+  `0xFF`; `arg == 0` hangs the SMU (community-decoded, 2026-09).
 - **Never blindly enumerate Q2:0x11+ or Q4** — confirmed to cause permanent
   firmware hang requiring reboot (observed 2026-06-08). Ghidra analysis of
   the handler code is required before probing those ranges.
@@ -176,7 +208,33 @@ DELIVERABLE: `smu-enumerate.py` (done); annotated results pending Ghidra.
 
 ## Phase 2 — SMU firmware extraction and Ghidra analysis
 
-**STATUS: BLOCKED — firmware code section is AES-encrypted (2026-06-08).**
+**STATUS: UNBLOCKED (2026-09-24). The "AES-encrypted" conclusion below was
+wrong.** A re-check (`smu/smu-xtensa-check.py`) shows:
+
+- The PSP header of every SMU blob we hold (v2.00, v5.00, and the psptool
+  extract) has `encrypted = 0` (offset 0x18) and `compressed = 0`. The PSP
+  loads the body as-is.
+- The high-entropy region 0x20000–0x3A000 is **plaintext Xtensa code**.
+  It contains about 1,300 `retw.n` (`1d f0`) and about 900 `entry`
+  (`36 xx 0x`) patterns, where random data would give about 2 of each.
+  Capstone 6 linear-decodes ~96% of it as valid Xtensa: `l32r`, `call8`,
+  `memw`, `l32i`/`s32i`… A sample function at body offset 0x2004c is
+  `entry a1,0x20` → an MMIO read-modify-write with `memw` → a polling loop
+  → `retw.n`.
+- Dense Xtensa code (24/16-bit mixed encoding, windowed ABI) simply
+  measures ~7.1–7.3 b/B. Entropy alone was the wrong test. "0 ARM `BX LR`"
+  was the wrong ISA check.
+- The low region (0x00000–0x1C000) holds literal pools, tables and strings.
+  Code references into it with `l32r` (e.g. `l32r a4, 0x1753c`), consistent
+  with a flat image loaded at 0.
+
+This matches the community having handler pseudocode (`msg_q3_98`). Next
+step: load the body in Ghidra as Xtensa LE at base 0, then find the queue
+dispatch tables. Check whether the local Ghidra install ships an Xtensa
+processor module (`ls ~/ghidra/Ghidra/Processors | grep -i xtensa`). If
+not, use the community plugin.
+
+The original (incorrect) analysis is kept below for the record.
 
 ### What we found
 
@@ -189,7 +247,7 @@ has two distinct sections:
 | 0x20000–0x3BFFF | 112 KB | 7.2–7.3 b/b | **AES-encrypted**: actual ARM code section; PSP-fused key, no public decryption path |
 | 0x3C000–0x40200 | ~16 KB | 0.0 b/b | Zero padding |
 
-Key evidence for encryption: 0 BX LR (0x4770) instructions at aligned addresses
+~~Key evidence for encryption~~ (superseded, see status above): 0 BX LR (0x4770) instructions at aligned addresses
 across the entire blob; no compression magic bytes; no valid ARM CM vector table;
 entropy matches AES ciphertext. Decompression attempts (zlib, LZMA) failed.
 
@@ -245,7 +303,22 @@ testing or unencrypted SMU firmware analysis.
 
 Extracted blobs saved to `smu/abl/` (cleaned up names).
 
-2.A **Unencrypted SMU firmware — EXHAUSTED (2026-06-08)**:
+**How the blobs were extracted** (reconstructed 2026-09-24; no script was
+committed):
+```
+pip install psptool            # also needs cffi on some systems
+psptool -E Robin5.00           # list all PSP/BIOS directories + entries
+psptool -X -d 0 -u -o smu/abl Robin5.00   # dir 0, decompress zlib'd entries
+```
+The `dNN_eMM_TYPE~0xTT_version` filenames are psptool's `-X` naming. Only
+**directory 0** (the PSP L1 directory) was saved. The other directories in
+the ROM (BIOS directory, any L2 / secondary PSP directory) were not extracted.
+`Robin5.00` itself is gitignored. psptool's `-c` (decrypt) is irrelevant
+here: it only knows the Zen/Zen+ IKEKs, and no dir-0 entry is encrypted.
+
+2.A **Unencrypted SMU firmware — MOOT (2026-09-24): our own blobs are
+already plaintext.** Original 2026-06-08 survey, based on the same flawed
+entropy test (the other chips' images may be plaintext too):
 - BC-250 v2.00 (earliest available): encrypted (7.0-7.3 b/b)
 - Van Gogh (Steam Deck, AMD official `firmware_binaries` repo): encrypted
 - Renoir v2000a, Cezanne, Mendocino, Picasso: all encrypted or .csbin (8.0 b/b)
@@ -269,8 +342,55 @@ reveal command ID → handler mapping offsets, even without the code.
 occasionally enabled firmware decryption. Monitor AMD PSP research; not
 actionable today.
 
-DELIVERABLE: PSPSMC message table documented (done). SMU Q0–Q4 dispatch table
-still blocked on unencrypted SMU firmware.
+DELIVERABLE: PSPSMC message table documented (done). SMU Q0–Q4 dispatch table:
+now doable. Load the plaintext Xtensa image in Ghidra.
+
+---
+
+## Phase 2.E — Is there a VCN power-up handler? (2026-09-24)
+
+**Question:** the m2jgh8tg7r-bot VCN research is stuck on whether the VCN
+block can be powered at all. Does the SMU firmware contain a VCN power-up
+handler?
+
+**Answer: no VCN power-up path exists.** Evidence, from five independent
+angles:
+
+1. **SMU firmware strings** (`smu_p300_v58060_mp1_fw.bin`, the v0.58.6.0
+   image matching the running board): 187 printable strings, none matching
+   `vcn|uvd|jpeg|vce|gate|video`. Only `AMD BC-250` and one `ioIf::` symbol.
+2. **Ghidra decompilation** (Xtensa LE, base 0, 1,280 functions). No PLL /
+   divider / clock-setup idioms. The heavy register functions load bases
+   from the literal pool (no inline VCN register block identifiable), and
+   nothing decompiles to a VCN enable/ungate sequence.
+3. **No VCN message in the exposed interface.** The kernel Cyan PPSMC list
+   (`smu_v11_8_ppsmc.h`) has no VCN/JPEG message; Renoir's `PowerUpVcn 0xC`
+   is `RequestCorePstate` on Cyan. `cyan_skillfish_ppt_funcs` has no
+   `dpm_set_vcn_enable`, so nothing ever asks the SMU to power VCN.
+4. **Boot never clocks VCN.** The PSP ABL's complete clock-setup command set
+   is `SetupFclkPll` + `SetupUclkPll` only (repo `ghidra-psp/` strings).
+   There is no VCLK/DCLK (VCN clock) PLL setup at boot. VCLK/DCLK appear in
+   the SMU metrics struct, but that is read-only monitoring, and with the
+   PLLs unprogrammed those fields have no real source.
+5. **No VCN firmware to run.** The BIOS PSP directory ships no VCN image
+   (see `community-status-2026-09.md` §6b), and linux-firmware has none for
+   this part.
+
+**Caveat:** without symbols or a datasheet, a dormant handler that is wired
+to no message and touches no named register cannot be *disproven* by
+decompilation alone. But every reachable path, every clock-setup step, and
+every firmware-provenance check says VCN is simply not a subsystem this SMU
+manages. Powering VCN would need new SMU firmware, not a hidden command.
+
+**Reproduce:**
+```
+# extract the version-matched SMU code body
+python3 -c "b=open('smu/smu_p300_v58060_mp1_fw.bin','rb').read(); \
+            open('/tmp/smu_code.bin','wb').write(b[0x100:0x100+0x40000])"
+# Ghidra 12.x headless, Xtensa little-endian, base 0
+analyzeHeadless proj smu -import /tmp/smu_code.bin \
+    -processor "Xtensa:LE:32:default" -loader BinaryLoader -loader-baseAddr 0x0
+```
 
 ---
 
@@ -314,6 +434,10 @@ DELIVERABLE: FCLK control command — pending unencrypted SMU firmware analysis.
 ## Phase 4 — Secure access group investigation
 
 The six locked Q3 commands (0x27, 0x2A–0x2F) need their gate condition found.
+
+4.0 **(New, 2026-09 — do this first.)** Read `Hexxeh/bc250-efi-core-unlock`
+(`smu.c`, `unlock.c`). It claims to unlock SMU secure access pre-OS. Document
+the message sequence and check if it also unlocks Q3 0x27/0x2A–0x2F.
 
 4.1 From the Ghidra analysis (Phase 2), identify what the gate checks:
 - A specific memory-mapped register bit?
@@ -381,6 +505,7 @@ estimate (which feeds boost decisions).
    untested. This is the lowest-risk entry point to Phase 3.
 
 3. **Is the secure access flag related to the BIOS SVM/IOMMU setting?**
+   (Likely superseded: the EFI shim sets it from pre-OS; see 4.0.)
    Enabling IOMMU changes AGESA state significantly; worth checking if it also
    sets an SMU register the secure group checks.
 
@@ -399,3 +524,6 @@ estimate (which feeds boost decisions).
 - `drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu11_driver_if_cyan_skillfish.h`
   — metrics table structure; VID encoding reference
 - `mothenjoyer69/bc250-documentation/hardware.md` — J2 HDT+ pinout
+- `rw-r-r-0644/bc250-core-unlock` — Q3 0x98 handler decode, 8-core unlock
+- `Hexxeh/bc250-efi-core-unlock` — EFI shim, SMU secure-access unlock
+- `GabriWar/bc250-core-cu-unlock` — Linux-side 0x98 tool, raw register sequence
