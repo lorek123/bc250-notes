@@ -182,6 +182,21 @@ docs were last touched around March 2026, per the repo metadata we saw.
   registered rings, dmesg and vainfo. It sends no SMU/PSP messages.
 - **Workaround:** `MTSistemi/bc250-vaapi` is a VA-API driver that does
   H.264/HEVC encode on compute shaders and decode on the CPU.
+- **BIOS provenance (2026-09-24, our check):** the BC-250 P3.00 BIOS ships
+  **no VCN/UVD firmware at all.** psptool on both `BC250_3.00.ROM` and
+  `BC250_3.00_CHIPSETMENU.ROM` (from TuxThePenguin0's repo) shows an 18-entry
+  $PSP directory with no VCN/UVD type; entry 4 is `DEBUG_UNLOCK~0x13` (PSP
+  directory type 0x13, the debug-unlock the research already distinguished
+  from the *runtime* VCN command fw_type 13). The $BHD directory has only
+  APCB/APOB/BIOS. So the VCN engine has no microcode in SPI — it can only
+  come from linux-firmware, where no `cyan_skillfish2_vcn.bin` exists, and a
+  Navi10-signed image is PSP-rejected (`0xffff0008`). This is the concrete
+  answer to the research's open "service-image provenance" step: there is no
+  version-matched VCN image to load. It matches the AMD developer's statement
+  that VCN was outside the BC-250 product definition.
+- **SMU version note:** the P3.00 SMU is v0.58.6.0 — the version the running
+  board reports (`0x00580600`) — while the repo's Robin5.00 copy is 0.58.7.1.
+  Both are plaintext Xtensa (`smu/smu_p300_v58060_mp1_fw.bin`, added).
 - **Where our work could help:** the now-readable SMU firmware (see
   `bc250-smu-reverse-plan.md` Phase 2) should contain the VCN power-up
   handler, or show it stubbed. That answers the "whole-block VCN power"
