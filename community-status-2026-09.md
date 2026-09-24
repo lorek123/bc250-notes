@@ -197,11 +197,15 @@ docs were last touched around March 2026, per the repo metadata we saw.
 - **SMU version note:** the P3.00 SMU is v0.58.6.0 — the version the running
   board reports (`0x00580600`) — while the repo's Robin5.00 copy is 0.58.7.1.
   Both are plaintext Xtensa (`smu/smu_p300_v58060_mp1_fw.bin`, added).
-- **Where our work could help:** the now-readable SMU firmware (see
-  `bc250-smu-reverse-plan.md` Phase 2) should contain the VCN power-up
-  handler, or show it stubbed. That answers the "whole-block VCN power"
-  question without touching hardware. The PSP firmware-load rejection is a
-  signature/key problem that the SPI blobs cannot solve.
+- **SMU has no VCN power-up handler (2026-09-24, Ghidra).** We disassembled
+  the version-matched SMU firmware (v0.58.6.0) as Xtensa: no VCN strings, no
+  clock-PLL setup code, and the boot loader programs only FCLK/UCLK PLLs (no
+  VCLK/DCLK). The SMU only *monitors* VCLK/DCLK; it never powers or clocks
+  VCN, and no message exposes such a path. So the "whole-block VCN power"
+  question resolves negative: enabling VCN would need new SMU firmware, not a
+  hidden command. Combined with the PSP signature rejection and the absent
+  microcode, VCN is not reachable on the BC-250 by any software-only route.
+  Details: `bc250-smu-reverse-plan.md` Phase 2.E.
 
 ## 7. Consequences for this repo's artifacts
 

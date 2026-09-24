@@ -347,6 +347,53 @@ now doable. Load the plaintext Xtensa image in Ghidra.
 
 ---
 
+## Phase 2.E — Is there a VCN power-up handler? (2026-09-24)
+
+**Question:** the m2jgh8tg7r-bot VCN research is stuck on whether the VCN
+block can be powered at all. Does the SMU firmware contain a VCN power-up
+handler?
+
+**Answer: no VCN power-up path exists.** Evidence, from five independent
+angles:
+
+1. **SMU firmware strings** (`smu_p300_v58060_mp1_fw.bin`, the v0.58.6.0
+   image matching the running board): 187 printable strings, none matching
+   `vcn|uvd|jpeg|vce|gate|video`. Only `AMD BC-250` and one `ioIf::` symbol.
+2. **Ghidra decompilation** (Xtensa LE, base 0, 1,280 functions). No PLL /
+   divider / clock-setup idioms. The heavy register functions load bases
+   from the literal pool (no inline VCN register block identifiable), and
+   nothing decompiles to a VCN enable/ungate sequence.
+3. **No VCN message in the exposed interface.** The kernel Cyan PPSMC list
+   (`smu_v11_8_ppsmc.h`) has no VCN/JPEG message; Renoir's `PowerUpVcn 0xC`
+   is `RequestCorePstate` on Cyan. `cyan_skillfish_ppt_funcs` has no
+   `dpm_set_vcn_enable`, so nothing ever asks the SMU to power VCN.
+4. **Boot never clocks VCN.** The PSP ABL's complete clock-setup command set
+   is `SetupFclkPll` + `SetupUclkPll` only (repo `ghidra-psp/` strings).
+   There is no VCLK/DCLK (VCN clock) PLL setup at boot. VCLK/DCLK appear in
+   the SMU metrics struct, but that is read-only monitoring, and with the
+   PLLs unprogrammed those fields have no real source.
+5. **No VCN firmware to run.** The BIOS PSP directory ships no VCN image
+   (see `community-status-2026-09.md` §6b), and linux-firmware has none for
+   this part.
+
+**Caveat:** without symbols or a datasheet, a dormant handler that is wired
+to no message and touches no named register cannot be *disproven* by
+decompilation alone. But every reachable path, every clock-setup step, and
+every firmware-provenance check says VCN is simply not a subsystem this SMU
+manages. Powering VCN would need new SMU firmware, not a hidden command.
+
+**Reproduce:**
+```
+# extract the version-matched SMU code body
+python3 -c "b=open('smu/smu_p300_v58060_mp1_fw.bin','rb').read(); \
+            open('/tmp/smu_code.bin','wb').write(b[0x100:0x100+0x40000])"
+# Ghidra 12.x headless, Xtensa little-endian, base 0
+analyzeHeadless proj smu -import /tmp/smu_code.bin \
+    -processor "Xtensa:LE:32:default" -loader BinaryLoader -loader-baseAddr 0x0
+```
+
+---
+
 ## Phase 3 — FCLK/MEMCLK control
 
 **STATUS: Updated with ABL findings (2026-06-08). FCLK/UCLK setup confirmed
